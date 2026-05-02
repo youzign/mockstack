@@ -1228,10 +1228,10 @@ function SalesPage({ onNavigate }: { onNavigate: (path: string) => void }) {
               Lifetime launch access
             </div>
             <h1 className="max-w-[720px] text-[44px] font-medium leading-[0.98] tracking-[-0.035em] sm:text-[64px]">
-              Mockstack
+              Bring your own API key. Generate mockups at cost.
             </h1>
             <p className="mt-5 max-w-[560px] text-lg leading-8 text-[#565656]">
-              Every mockup. One app. One time. Turn logos, screenshots, and product photos into launch-ready mockups without PSDs, Photoshop, or another subscription.
+              Upload a logo, screenshot, or product photo. Mockstack turns it into polished image and video mockups using your own API keys, with no usage markup and no monthly fee.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Button className="h-11 px-5 text-[15px]" nativeButton={false} render={<a href={checkoutUrl} />}>
