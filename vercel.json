@@ -1,4 +1,7 @@
 {
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/((?!assets/|preset-thumbnails/|favicon.svg|icons.svg|logo-mark.svg|logo-mark.png|icon-192.png|icon-512.png|manifest.webmanifest|sw.js|special.html|sales-im.css|colors_and_type.css|preset-names.json).*)",
