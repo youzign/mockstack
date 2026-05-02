@@ -1,0 +1,673 @@
+<!doctype html>
+<!-- Legacy sales-page draft. Live sales page: public/special.html. Current launch positioning: docs/sales-page.md. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mockstack — every mockup. one app. one time.</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="../assets/logo-mark.svg" />
+  <link rel="stylesheet" href="../colors_and_type.css" />
+  <link rel="stylesheet" href="sales-im.css" />
+</head>
+<body>
+
+<!-- ── scarcity bar ─────────────────────────────────────── -->
+<div class="im-scarcity">
+  <span class="pulse"></span>
+  <span><strong>LAUNCH WEEK · 25% OFF</strong> · 130 lifetime presets · ends in</span>
+  <span class="timer" id="im-timer">04d : 23h : 59m : 12s</span>
+</div>
+
+<!-- ── sticky brand + mini price + cta ─────────────────── -->
+<nav class="im-stickynav">
+  <div class="im-stickynav-inner">
+    <a class="brand" href="#top">
+      <span class="mark"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span></span>
+      <span>Mockstack</span>
+    </a>
+    <span class="miniprice">
+      <span class="strike">$99</span>
+      <strong>$74 lifetime</strong>
+    </span>
+    <a class="im-cta compact" href="#buy">
+      <span>Get Mockstack →</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── hero ─────────────────────────────────────────────── -->
+<header id="top" class="im-hero">
+  <div class="im-wrap">
+    <span class="im-precred"><span class="dot"></span>Powered by fal.ai · the same models the top studios use</span>
+
+    <h1 class="im-hero-h1">
+      Get <span class="hl">130 pro mockups</span> from one upload — for the price of <span class="hl">one month</span> of Placeit.
+    </h1>
+
+    <p class="im-hero-sub">
+      Logos, screenshots, product photos turned into <strong>professional mockups in 30 seconds.</strong>
+      One $74 payment. Lifetime access. Bring your own AI key — pay <strong>4¢ per image</strong>, not 15. Not "credits." Not ever.
+    </p>
+
+    <div class="im-vsl">
+      <button class="im-vsl-play" aria-label="Play 90-second walkthrough">
+        <span class="core">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M9 6 L22 14 L9 22 Z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+      <span class="im-vsl-tag">▶ 90-SECOND WALKTHROUGH — WATCH BEFORE YOU SCROLL</span>
+      <span class="im-vsl-len">1:32</span>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta big" href="#buy">
+        <span>YES — give me lifetime access for $74</span>
+        <span class="arrow">→</span>
+      </a>
+      <div class="undertext">
+        <span>🛡 <strong>100-day refund</strong></span><span class="sep">·</span>
+        <span>One payment, no subscription</span><span class="sep">·</span>
+        <span>Instant access</span>
+      </div>
+    </div>
+
+    <div class="im-trust">
+      <span class="item"><strong>$0 markup</strong> on AI</span>
+      <span>·</span>
+      <span class="item"><strong>$0 monthly</strong> fee</span>
+      <span>·</span>
+      <span class="item"><strong>$0 upsells</strong></span>
+      <span>·</span>
+      <span class="item"><strong>commercial license</strong> included</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── problem ──────────────────────────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">The problem</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">The mockup market is broken. <span class="hl">You already know this.</span></h2>
+
+    <p class="im-lede" style="text-align:center;">
+      You needed a hero image. So you opened a tab. And then it started.
+    </p>
+
+    <ul class="im-bads">
+      <li><span class="x">×</span><span><strong>Placeit</strong> wants $14.95/month — $179/year — for templates that look like 2014 stock photography. Quietly recurring. Two-year ghost subscriptions on every Trustpilot page.</span></li>
+      <li><span class="x">×</span><span><strong>Mockey AI</strong> sells a "lifetime" deal at $199 — twice our price — then meters every AI image at $0.15 when the actual cost is $0.04. <span class="hl-full">A hidden 4× markup.</span></span></li>
+      <li><span class="x">×</span><span><strong>Photoroom & Pebblely</strong> charge $9.99–$39/month for AI scenes. Credit-metered. Capped. Hit the wall by Wednesday.</span></li>
+      <li><span class="x">×</span><span><strong>Canva</strong> is a generalist tool that happens to have mockups, the way a Swiss Army knife happens to have a corkscrew. $15/month for the privilege.</span></li>
+      <li><span class="x">×</span><span><strong>Smartmockups</strong> — the one tool half the indie internet liked — was killed by Canva on <strong>9/27/2024</strong>. 500,000 users orphaned. No replacement. No migration. Just an "your account has been deactivated" email.</span></li>
+    </ul>
+
+    <p class="im-pi">
+      You don't have a "find a mockup tool" problem.<br/>
+      You have a "find a mockup tool that won't quietly extract <span class="hl">$200/year for the next decade</span>" problem.
+    </p>
+  </div>
+</section>
+
+<!-- ── 3 steps ──────────────────────────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">How it works</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">From upload to <span class="hl">130 mockups</span> in three clicks.</h2>
+    <p class="im-lede" style="text-align:center;">No PSDs. No Photoshop. No design background. <strong>If you can drag a file, you can run Mockstack.</strong></p>
+
+    <div class="im-steps">
+      <div class="im-step">
+        <span class="num-pill">Step 01</span>
+        <h3>Upload</h3>
+        <p>Drop your image. Logo, screenshot, or product photo — PNG, JPG, or WebP, up to 10MB. No account required. Your key stays in your browser.</p>
+      </div>
+      <div class="im-step">
+        <span class="num-pill">Step 02</span>
+        <h3>Choose presets</h3>
+        <p>Pick from 130. T-shirts, mugs, billboards, iPhones, MacBooks, marble countertops, beach scenes, 3D book covers, deterministic video reveals — all hand-tuned, all production-ready.</p>
+      </div>
+      <div class="im-step">
+        <span class="num-pill">Step 03</span>
+        <h3>Generate</h3>
+        <p>Hit go. Pro mockups in 30 seconds. Image presets render in 6–15s. Video in 30–60s. Download as PNG, JPG, WebP, or batch-zip the whole set.</p>
+      </div>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta" href="#buy"><span>Show me everything I get for $74 →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── intermediate CTA #2 ──────────────────────────────── -->
+<section class="im-section tight" style="background: var(--bg-secondary);">
+  <div class="im-wrap im-cta-block">
+    <a class="im-cta" href="#buy">
+      <span>Skip the rant — give me the lifetime deal →</span>
+    </a>
+    <div class="undertext">
+      <span><strong>$74 today</strong> · $99 after launch week · <strong>100-day refund</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── introducing / what you get ───────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Introducing</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">
+      Mockstack — the all-in-one AI mockup app priced like <span class="hl">a tool, not a tax.</span>
+    </h2>
+
+    <p class="im-lede" style="text-align:center;">
+      Drop a logo, a screenshot, or a product photo. Pick from 130 hand-tuned presets. Get pro mockups in 30 seconds. <strong>One payment. Lifetime.</strong>
+    </p>
+
+    <ul class="im-goods">
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>130 hand-tuned presets</strong> across logo, screenshot, product, and video.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>3 input types</strong> — logo, screenshot, product photo. Most tools do one.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>BYOK fal.ai</strong> — pay AI's actual cost. ~$0.04/image, ~$0.30/video. Zero markup. Forever.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>18 deterministic video presets</strong> — camera motion only, no AI hallucination.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>Commercial license included</strong> — Etsy, clients, ads, agency work.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>No account, no cloud lock-in</strong> — keys live in your browser.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>All future preset packs free</strong> — every category we ship goes to your account.</span></li>
+      <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.7l4.5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>All future updates free</strong> — no v2 upgrade fee. Ever.</span></li>
+    </ul>
+
+    <div class="im-getbox">
+      <h3>Mockstack — Lifetime Access</h3>
+      <p style="margin:0; color: var(--fg-2); font-size:14.5px; line-height:1.55;">
+        Everything above. Plus the launch-week bonus stack below ($311+ value). One payment. Use forever.
+      </p>
+      <div class="price-row">
+        <span class="now">$74</span>
+        <span class="was">$99</span>
+        <span class="save">SAVE 25%</span>
+      </div>
+      <a class="im-cta big" href="#buy" style="width:100%; margin-top: 18px;">
+        <span>YES — I want lifetime access for $74</span>
+        <span class="arrow">→</span>
+      </a>
+      <div style="margin-top: 12px; font-size: 12px; color: var(--fg-3); text-align:center;">
+        🛡 100-day money-back · Stripe checkout · instant access
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── comparison ───────────────────────────────────────── -->
+<section class="im-section" style="background: var(--bg-secondary);">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Side-by-side</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">
+      The triplet <span class="hl">no competitor can match.</span>
+    </h2>
+
+    <div class="im-comp">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Placeit</th>
+            <th>Smartmockups</th>
+            <th>Mockey</th>
+            <th>Photoroom</th>
+            <th class="col-us">Mockstack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-feat">All-in-one (logo + screenshot + product)</td>
+            <td class="no">✗</td><td class="no">✗</td><td>Partial</td><td class="no">✗</td>
+            <td class="col-us yes">✓</td>
+          </tr>
+          <tr>
+            <td class="row-feat">BYOK (no AI markup)</td>
+            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td>
+            <td class="col-us yes">✓</td>
+          </tr>
+          <tr>
+            <td class="row-feat">One-time payment</td>
+            <td class="no">✗</td><td class="no">✗</td><td>$199</td><td class="no">✗</td>
+            <td class="col-us">$74 launch</td>
+          </tr>
+          <tr>
+            <td class="row-feat">Still alive</td>
+            <td class="yes">✓</td><td class="no">✗ killed 9/27/24</td><td class="yes">✓</td><td class="yes">✓</td>
+            <td class="col-us yes">✓</td>
+          </tr>
+          <tr>
+            <td class="row-feat">Annual cost (typical use)</td>
+            <td>$179</td><td>—</td><td>$199 + AI</td><td>$234 + credits</td>
+            <td class="col-us"><strong>$74. That's it.</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="im-lede" style="text-align:center; margin-top: 28px;">
+      Placeit can't go BYOK without killing margin. Mockey can't drop to $99 without cannibalizing buyers. Photoroom can't go one-time without nuking valuation. <strong>We can do all three</strong> because we started fresh in 2026 with the goal of breaking the subscription model.
+    </p>
+
+    <div class="im-cta-block">
+      <a class="im-cta" href="#buy"><span>Get the lifetime deal — $74 →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6 features ───────────────────────────────────────── -->
+<section class="im-section" id="features">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">What's inside</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">Six things you <span class="hl">only get here.</span></h2>
+
+    <div class="im-feat">
+      <div class="num">01</div>
+      <div>
+        <h3>API-Direct Pricing™ — you pay AI's actual price.</h3>
+        <p>Every other mockup tool with AI sits between you and the model and charges a margin. <strong>Mockey: $0.15/image. Real cost: $0.04.</strong> A 275% markup hidden in their interface.</p>
+        <p>Mockstack is different. You bring your own fal.ai key (60-second setup). Generations bill direct from fal.ai to your card. We never touch the transaction. <strong>Most users spend $2–10/month</strong> on real AI cost — vs. $179/year on Placeit.</p>
+        <p>When AI prices drop every six months — and they do — your costs drop. Ours don't, because we never had a markup.</p>
+      </div>
+    </div>
+
+    <div class="im-feat">
+      <div class="num">02</div>
+      <div>
+        <h3>130 presets across every input type you actually use.</h3>
+        <p><strong>Logos</strong> go on apparel, drinkware, stationery, signage, packaging, digital screens, and video. <strong>45 presets.</strong></p>
+        <p><strong>Screenshots</strong> go on phones, laptops, tablets, browsers, and animated reveals. <strong>27 presets.</strong></p>
+        <p><strong>Product photos</strong> go on studio sweeps, home interiors, outdoor scenes, retail, info-product covers, aesthetics, seasonal, and rotating video. <strong>57 presets.</strong></p>
+        <p>Plus <strong>18 deterministic video presets</strong> — camera motion only, zero AI hallucination.</p>
+      </div>
+    </div>
+
+    <div class="im-feat">
+      <div class="num">03</div>
+      <div>
+        <h3>A lightweight web app that respects your time.</h3>
+        <p>No installs. No accounts. No cloud "workspaces." Mockstack runs in your browser. Drop a file, pick presets, hit generate. Your API key is stored in localStorage — never on our servers.</p>
+        <p>The interface is intentionally lightweight. <strong>Step one:</strong> what are you mocking up? <strong>Step two:</strong> pick scenes. <strong>Step three:</strong> looks good — generate.</p>
+        <p>Software should do one thing fast. Mockstack does one thing fast.</p>
+      </div>
+    </div>
+
+    <div class="im-feat">
+      <div class="num">04</div>
+      <div>
+        <h3>18 sure-shot video presets — the ones that never break.</h3>
+        <p>Most AI video models, given enough prompts, will invent a third hand on your product or melt your logo halfway through. Useless for client work.</p>
+        <p>Our 18 video presets are <strong>deterministic by design</strong> — camera motion only, no new objects. Logo intros scale up. Products spin 360° on a marble counter. Nothing else.</p>
+        <p>Result: video that ships to clients without QA. Render in 30–60s at <strong>$0.30 per output</strong>. Tens of dollars of editor work, for the cost of a coffee.</p>
+      </div>
+    </div>
+
+    <div class="im-feat">
+      <div class="num">05</div>
+      <div>
+        <h3>Commercial license. No agency tier. No per-seat upsell.</h3>
+        <p>Every mockup Mockstack generates is yours — to use on sales pages, deliver to clients, list on Etsy, put in pitch decks, run as paid ads. We don't carve out an "agency tier" at $299 like Placeit does.</p>
+        <p><strong>One payment, full commercial rights, every output, forever.</strong></p>
+      </div>
+    </div>
+
+    <div class="im-feat">
+      <div class="num">06</div>
+      <div>
+        <h3>The founder pledge — because vendors die.</h3>
+        <p>Smartmockups taught the market a lesson most vendors won't address: the platform you depend on can vanish in one acquisition email.</p>
+        <p>Our pledge, in writing: if Mockstack ever winds down, we'll <strong>(a)</strong> push a final desktop export build so every paying user keeps their full preset library locally, and <strong>(b)</strong> open-source the prompt definitions on GitHub so the community can keep the project alive without us.</p>
+        <p>You're not renting access. You bought a tool. We mean it.</p>
+      </div>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta big" href="#buy"><span>YES — give me lifetime access for $74</span><span class="arrow">→</span></a>
+      <div class="undertext"><span>🛡 100-day refund · One payment, no subscription</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BYOK callout / API direct ────────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow">The mechanism</span>
+    <h2 class="im-h2">API-direct pricing. <span class="hl">You pay AI's actual price.</span></h2>
+    <p class="im-lede" style="margin-left:0;">
+      Every other mockup tool with AI sits between you and the model and charges a margin. <strong>Mockey: $0.15/image. Real cost: $0.04.</strong> That's a 275% markup baked into their interface.
+    </p>
+
+    <div style="margin-top: 32px; max-width: 760px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 28px 32px;">
+      <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 14px;">PER-IMAGE COST</div>
+      <div style="display: grid; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 130px 1fr 60px; gap: 14px; align-items: center; font-size: 14px;">
+          <span>Mockey</span>
+          <div style="height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;"><div style="width: 100%; height: 100%; background: var(--fg-1);"></div></div>
+          <strong style="text-align: right;">$0.15</strong>
+        </div>
+        <div style="display: grid; grid-template-columns: 130px 1fr 60px; gap: 14px; align-items: center; font-size: 14px;">
+          <span>Placeit credits</span>
+          <div style="height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;"><div style="width: 67%; height: 100%; background: var(--fg-1);"></div></div>
+          <strong style="text-align: right;">$0.10</strong>
+        </div>
+        <div style="display: grid; grid-template-columns: 130px 1fr 60px; gap: 14px; align-items: center; font-size: 14px;">
+          <span style="font-weight: 500;">Mockstack</span>
+          <div style="height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;"><div style="width: 27%; height: 100%; background: var(--im-yellow); border: 1px solid var(--fg-1); margin: -1px 0 0 -1px;"></div></div>
+          <strong style="text-align: right;">$0.04</strong>
+        </div>
+      </div>
+      <p style="margin: 18px 0 0; font-size: 13px; color: var(--fg-2); line-height: 1.55;">
+        You bring your own fal.ai key (60-second setup). Generations bill direct from fal.ai to your card. We never touch the transaction. Most users spend <strong>$2–10/month</strong> on real AI cost — vs. <strong>$179/year</strong> on Placeit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── presets quick view ───────────────────────────────── -->
+<section class="im-section" style="background: var(--bg-secondary);">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">All 130 included</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">
+      Every preset. <span class="hl">No "premium tier."</span> No locked categories.
+    </h2>
+
+    <div style="margin-top: 32px; max-width: 820px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+      <div style="background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 18px 16px; text-align: center;">
+        <div style="font-size: 32px; font-weight: 500; letter-spacing: -0.02em;">45</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 4px;">Logo presets</div>
+        <div style="font-size: 11px; color: var(--fg-3); margin-top: 2px;">Apparel, mugs, signage, packaging, video</div>
+      </div>
+      <div style="background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 18px 16px; text-align: center;">
+        <div style="font-size: 32px; font-weight: 500; letter-spacing: -0.02em;">27</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 4px;">Screenshot</div>
+        <div style="font-size: 11px; color: var(--fg-3); margin-top: 2px;">Phone, laptop, tablet, browser, video</div>
+      </div>
+      <div style="background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 18px 16px; text-align: center;">
+        <div style="font-size: 32px; font-weight: 500; letter-spacing: -0.02em;">57</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 4px;">Product</div>
+        <div style="font-size: 11px; color: var(--fg-3); margin-top: 2px;">Studio, home, outdoor, info-product, video</div>
+      </div>
+      <div style="background: var(--fg-1); color: #fff; border-radius: 10px; padding: 18px 16px; text-align: center;">
+        <div style="font-size: 32px; font-weight: 500; letter-spacing: -0.02em;">18</div>
+        <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">Video presets</div>
+        <div style="font-size: 11px; opacity: 0.5; margin-top: 2px;">Deterministic — never break</div>
+      </div>
+    </div>
+
+    <details style="margin: 28px auto 0; max-width: 820px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px;">
+      <summary style="list-style:none; padding: 16px 20px; cursor: pointer; display:flex; justify-content:space-between; align-items:center; font-size: 14.5px; font-weight: 500;"><span>See all 130 preset names</span><span style="background:var(--im-yellow); padding:4px 10px; border-radius:999px; border:1px solid var(--fg-1); font-size:11px; letter-spacing:0.06em;">EXPAND</span></summary>
+      <div style="padding: 4px 22px 22px; font-size: 12.5px; color: var(--fg-2); line-height: 1.6;">
+        <p style="margin:14px 0 4px; color:var(--fg-1); font-weight:500;">🟦 LOGO (45)</p>
+        <p style="margin:0 0 8px;"><strong>Apparel:</strong> White tee on hanger · Black tee on hanger · Folded tee stack · Person in white tee · Cream hoodie · Black hoodie streetwear · Navy cap · Beanie marble · Polo · Crewneck</p>
+        <p style="margin:0 0 8px;"><strong>Drinkware & Bags:</strong> Ceramic mug wood desk · Black mug marble · Travel mug · Insulated bottle hike · Canvas tote shoulder · Tote kitchen table</p>
+        <p style="margin:0 0 8px;"><strong>Stationery:</strong> Card on marble · Card stack kraft · Letterhead w/ pen · Kraft envelope wax seal · Embossed leather notebook · Branded coffee cup</p>
+        <p style="margin:0 0 8px;"><strong>Signage:</strong> Storefront vinyl · Blade sign · Reception raised letters · Glass tower · Neon brick night · Highway billboard sunset · Vehicle wrap van · Subway poster</p>
+        <p style="margin:0 0 8px;"><strong>Packaging:</strong> Kraft shipping box · Embossed white box · Black matte gold foil · Wine bottle label · Coffee bag · Cosmetic dropper · Soap wrapped paper</p>
+        <p style="margin:0 0 8px;"><strong>Digital:</strong> Instagram profile · App icon home screen · YouTube banner · LinkedIn page laptop</p>
+        <p style="margin:0 0 8px;"><strong>Video:</strong> Logo intro scale-up · Logo on rotating box · Logo zoom-in card · Logo embossed pan · Logo orbit metallic</p>
+        <p style="margin:14px 0 4px; color:var(--fg-1); font-weight:500;">🟨 SCREENSHOT (27)</p>
+        <p style="margin:0 0 8px;"><strong>Phone:</strong> iPhone in hand café · iPhone marble desk · iPhone purple gradient · iPhone white sweep · iPhone wooden desk · iPhone bedside lamp · Phone from pocket · Two iPhones</p>
+        <p style="margin:0 0 8px;"><strong>Laptop:</strong> MacBook wood desk · MacBook minimalist desk · MacBook in lap · MacBook café · MacBook studio sweep · MacBook coworking</p>
+        <p style="margin:0 0 8px;"><strong>Tablet:</strong> iPad beige natural · iPad with Pencil · iPad floating studio</p>
+        <p style="margin:0 0 8px;"><strong>Browser:</strong> Browser purple gradient · Browser tilted dark · Browser white sweep · Browser tilted orange · iMac home office</p>
+        <p style="margin:0 0 8px;"><strong>Video:</strong> Slow zoom into iPhone · Tilted browser parallax · Slow pan past laptop · Phone 360° rotation · Browser scale-up</p>
+        <p style="margin:14px 0 4px; color:var(--fg-1); font-weight:500;">🟩 PRODUCT (57)</p>
+        <p style="margin:0 0 8px;"><strong>Studio:</strong> White Carrara marble · Black marble · Walnut wood · Polished concrete · Linen flat lay · White sweep · Black backdrop · Beige stone pedestal · Brushed brass · Floating white shadow · Floating pastel · Sun-drenched marble</p>
+        <p style="margin:0 0 8px;"><strong>Home:</strong> White kitchen · Marble island morning · Coffee bar espresso · Spa bathroom · Marble bathroom candle · Bedside nightstand · White linen sheets · Cozy coffee table · Window seat plants · Bookshelf</p>
+        <p style="margin:0 0 8px;"><strong>Outdoor:</strong> Beach golden hour · Forest dappled · Garden patio breakfast · Rooftop sunset · Picnic gingham</p>
+        <p style="margin:0 0 8px;"><strong>Retail:</strong> Hand holding · Two hands cradling · Hand reaching · Person opening packaging · Geometric stone podium · Pedestal water reflection</p>
+        <p style="margin:0 0 8px;"><strong>Info Products:</strong> 3D paperback floating · 3D hardcover wood · 3D book stack · Kindle in bed · iPad ebook · Software box 3D · Course on MacBook · USB drive</p>
+        <p style="margin:0 0 8px;"><strong>Aesthetics:</strong> Quiet luxury · Japandi wood · Dark academia · Brutalist concrete · Mediterranean</p>
+        <p style="margin:0 0 8px;"><strong>Seasonal:</strong> Christmas pine · Spring pastel · Autumn knit</p>
+        <p style="margin:0 0 8px;"><strong>Video:</strong> 360 white sweep · 360 marble · Push-in studio · Push-in marble · Pull-back lifestyle · Top-down spin · Hover float · Side pan cinematic</p>
+      </div>
+    </details>
+
+    <p class="im-lede" style="text-align: center; margin-top: 28px;">
+      And every preset pack we ship after launch is <strong>included free, forever.</strong>
+    </p>
+
+    <!-- powered by strip -->
+    <div style="margin: 36px auto 0; max-width: 820px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3);">Powered by</span>
+      <div style="display: flex; gap: 28px; align-items: center; flex-wrap: wrap; font-size: 15px; font-weight: 500; letter-spacing: -0.005em; color: var(--fg-2);">
+        <span>fal.ai</span><span>nano-banana</span><span>seedance</span><span>Stripe</span><span>Cloudflare</span>
+      </div>
+    </div>
+
+    <!-- market stats -->
+    <div style="margin: 18px auto 0; max-width: 820px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; display: grid; grid-template-columns: repeat(4, 1fr);">
+      <div style="padding: 22px; border-right: 0.5px solid rgba(0,0,0,0.08);">
+        <div style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">67%</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 6px; line-height: 1.5;">of top-500 fashion brands use AI imagery on listings.</div>
+      </div>
+      <div style="padding: 22px; border-right: 0.5px solid rgba(0,0,0,0.08);">
+        <div style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">94%</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 6px; line-height: 1.5;">higher conversion from quality product imagery.</div>
+      </div>
+      <div style="padding: 22px; border-right: 0.5px solid rgba(0,0,0,0.08);">
+        <div style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">80–95%</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 6px; line-height: 1.5;">cost savings vs. traditional product photography.</div>
+      </div>
+      <div style="padding: 22px;">
+        <div style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">500K+</div>
+        <div style="font-size: 12px; color: var(--fg-2); margin-top: 6px; line-height: 1.5;">Smartmockups users orphaned by Canva on 9/27/24.</div>
+      </div>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta" href="#buy"><span>Lock in $74 lifetime →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Bonus stack ──────────────────────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Launch-week bonuses</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">
+      <span class="hl">$311+ in bonuses</span> — free this week only.
+    </h2>
+    <p class="im-lede" style="text-align: center;">
+      Removed the day the timer hits zero. Buy now, keep them forever.
+    </p>
+
+    <div class="im-bonus-list">
+      <div class="im-bonus-row">
+        <div class="badge">BONUS<br/>01</div>
+        <div class="body">
+          <h4>100 DFY Etsy Listing Designs</h4>
+          <p>Plug-and-play layouts for the most common POD product categories. Drop your logo, render through Mockstack, list.</p>
+        </div>
+        <div class="val">value<strong>$97</strong></div>
+      </div>
+      <div class="im-bonus-row">
+        <div class="badge">BONUS<br/>02</div>
+        <div class="body">
+          <h4>Agency Client-Getting Playbook</h4>
+          <p>50-page PDF + cold email scripts for agency owners. The exact outreach that books $2K logo branding gigs.</p>
+        </div>
+        <div class="val">value<strong>$147</strong></div>
+      </div>
+      <div class="im-bonus-row">
+        <div class="badge">BONUS<br/>03</div>
+        <div class="body">
+          <h4>500 Premium AI Lifestyle Backgrounds</h4>
+          <p>Drop-in scene library. Use as Mockstack inputs or standalone. Curated for ecommerce, info products, personal brand.</p>
+        </div>
+        <div class="val">value<strong>$67</strong></div>
+      </div>
+      <div class="im-bonus-row">
+        <div class="badge">BONUS<br/>04</div>
+        <div class="body">
+          <h4>Lifetime VIP Community Access</h4>
+          <p>Private Skool / Telegram for Mockstack lifetime buyers. Preset requests, prompt-tuning tips, partner deals.</p>
+        </div>
+        <div class="val">value<strong>$0 forever</strong></div>
+      </div>
+    </div>
+
+    <div class="im-bonus-total">
+      Total bonus value: <span class="cross">$311+</span> &nbsp;→&nbsp; <span class="free">FREE this week</span>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta big" href="#buy">
+        <span>YES — give me Mockstack + all bonuses for $74</span>
+        <span class="arrow">→</span>
+      </a>
+      <div class="undertext">
+        <span>🛡 <strong>100-day refund</strong></span><span class="sep">·</span>
+        <span>One payment, lifetime access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Guarantee ────────────────────────────────────────── -->
+<section class="im-section" style="background: var(--bg-secondary);">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Guarantee</span>
+    <div class="im-guar">
+      <div class="im-seal">
+        <span class="num">100</span>
+        <span class="sub">Day Refund</span>
+      </div>
+      <div>
+        <h3>Try Mockstack for 100 days. If it isn't the last mockup tool you buy, <span class="hl">we refund every cent.</span></h3>
+        <p>Most software gives you 14 or 30 days. We give you <strong>100</strong>. A real launch cycle takes 6–8 weeks — we want you to use Mockstack on at least one full real campaign before deciding.</p>
+        <p>Generate every preset. Run a client project. Build a sales-page hero. If it isn't worth $74 to you, email us and we refund you in full. <strong>No survey. No "are you sure." No hold music.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Founder ──────────────────────────────────────────── -->
+<section class="im-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Why this exists</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">A note from the founder.</h2>
+
+    <div class="im-founder">
+      <div class="av">B</div>
+      <div>
+        <p>I cancelled Placeit, Smartmockups, and Canva Pro on the same morning in early 2026. I added up what I'd paid those three over the last four years: <strong>just over $2,400.</strong> For mockups. Of my own logo. On templates I could've rendered in Photoshop for free if I had the time.</p>
+        <p>Then I looked at fal.ai's pricing page. <strong>Four cents per image. Thirty cents per video.</strong></p>
+        <p>The gap between what we pay and what the AI costs is the whole business model of every mockup SaaS in this market. I built Mockstack to close that gap and pass the savings to you. <strong>No VC. No exit pressure.</strong> Just a profitable founder-led tool with a single $99 SKU.</p>
+        <p class="sig">— Bertrand · Founder, Mockstack</p>
+      </div>
+    </div>
+
+    <div class="im-cta-block">
+      <a class="im-cta" href="#buy"><span>I'm in — get my lifetime access →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ──────────────────────────────────────────────── -->
+<section id="faq" class="im-section" style="background: var(--bg-secondary);">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">FAQ</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">Questions before you buy.</h2>
+
+    <div class="im-faqs">
+      <details class="im-faq">
+        <summary><span>Is this really lifetime? Like, actually lifetime?</span><span class="chev">+</span></summary>
+        <div class="a">Yes. One payment, your account never expires. No annual renewal. No "lifetime up to 3 years" footnote. We make money on volume of one-time sales, not retention. The math works because <strong>you pay your own AI cost</strong> (BYOK) — we don't subsidize generation.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>What does BYOK actually cost me?</span><span class="chev">+</span></summary>
+        <div class="a">For most users: <strong>$2–10/month</strong> on real fal.ai usage. Set a monthly cap inside fal.ai if you want a hard ceiling ($20 is safe). When AI prices drop every six months — and they do — your costs drop. Ours don't, because we never had a markup.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>How do I get the fal.ai API key?</span><span class="chev">+</span></summary>
+        <div class="a">We hold your hand. Onboarding includes a 60-second video walkthrough showing exactly where to click. Most users are generating their first mockup within 90 seconds of signup.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>Is this just another shiny object?</span><span class="chev">+</span></summary>
+        <div class="a">Fair question. Founder-led, no VC, profitable from day one, public roadmap. We're not chasing an exit — we're building a tool we want to use ourselves for the next decade. If we ever wind down, you keep your downloads and we open-source the prompts.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>How does this compare to Mockey, Placeit, or Smartmockups?</span><span class="chev">+</span></summary>
+        <div class="a">See the comparison table above. Short version: we're the only one with all-in-one input types <strong>and</strong> BYOK pricing <strong>and</strong> one-time payment. Each competitor has at most one of those.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>What happens when AI providers change pricing?</span><span class="chev">+</span></summary>
+        <div class="a">You benefit, we don't. If fal.ai cuts costs in half (which has happened twice in the last two years), your generation costs drop. We don't markup either way — it's already at the floor.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>Will the vendor disappear in 6 months? (the Smartmockups question)</span><span class="chev">+</span></summary>
+        <div class="a">Smartmockups disappeared because Canva acquired and killed it. We can't be acquired into oblivion the same way — we're a single-SKU, founder-led, profitable tool. <strong>Founder pledge:</strong> if we ever wind down, full local export + open-source prompts on GitHub. You don't lose your mockups. Ever.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>Can I really use this commercially? Etsy? Client work?</span><span class="chev">+</span></summary>
+        <div class="a">Yes. Full commercial license is baked into every purchase. Sell to clients. List on Etsy. Run as paid ads. Build agency portfolios. All of it. No agency upgrade tier required.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>Is there a subscription option?</span><span class="chev">+</span></summary>
+        <div class="a">No. Deliberately. Adding a monthly tier would kill the lifetime story. We may later add an optional "managed credits" $19/month tier for users who don't want to set up BYOK — but the lifetime SKU will always exist, and is always the better deal for anyone running more than ~5 generations a week.</div>
+      </details>
+      <details class="im-faq">
+        <summary><span>What if I just want to try it?</span><span class="chev">+</span></summary>
+        <div class="a">That's what the 100-day money-back guarantee is for. Buy it, use it on a real campaign, generate hundreds of mockups. If it isn't worth $74, get in touch. Full refund. No friction.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ── final big CTA / signoff ──────────────────────────── -->
+<section id="buy" class="im-signoff">
+  <div class="im-wrap">
+    <span class="im-eyebrow">One last thing</span>
+    <h3>If you're reading this in launch week, this is the lowest price <span class="hl">Mockstack will ever sell for.</span></h3>
+    <p>After the timer hits zero, it's $99. Either way: one payment, lifetime access, pennies-per-image AI. <strong>No subscription. Ever.</strong></p>
+
+    <div style="margin-top: 32px;">
+      <a class="im-cta big" href="#">
+        <span>YES — Get Mockstack lifetime · $74</span>
+        <span class="arrow">→</span>
+      </a>
+      <div style="margin-top: 14px; font-size: 13px; color: var(--fg-2);">
+        🛡 100-day refund · ⚡ Instant access · 🔒 Stripe checkout
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="im-foot">
+  <div class="im-wrap">
+    <div class="links">
+      <a href="#top">Top</a>
+      <a href="#faq">FAQ</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Refund policy</a>
+      <a href="/cdn-cgi/l/email-protection#acdfd9dcdcc3ded8ecd5c3d9d6c5cbc282cfc3c1">Support</a>
+    </div>
+    <div class="copy">© 2026 Mockstack · Built by Youzign · Powered by fal.ai · Not affiliated with Placeit, Mockey, Smartmockups, Canva, or any subscription you forgot to cancel.</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // tiny countdown timer — 5 days from page load
+  (function() {
+    const target = Date.now() + 5 * 24 * 60 * 60 * 1000;
+    const el = document.getElementById("im-timer");
+    if (!el) return;
+    const pad = n => String(n).padStart(2, "0");
+    function tick() {
+      let d = Math.max(0, target - Date.now());
+      const days = Math.floor(d / 86400000); d -= days * 86400000;
+      const hrs = Math.floor(d / 3600000); d -= hrs * 3600000;
+      const min = Math.floor(d / 60000); d -= min * 60000;
+      const sec = Math.floor(d / 1000);
+      el.textContent = `${pad(days)}d : ${pad(hrs)}h : ${pad(min)}m : ${pad(sec)}s`;
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>
