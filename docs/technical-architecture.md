@@ -49,7 +49,9 @@ Preset thumbnail assets live in:
 public/preset-thumbnails/
 ```
 
-They are referenced from preset data with public paths like `/preset-thumbnails/log-001.png`.
+They are referenced from preset data with public paths like `/preset-thumbnails/log-001.png` and `/preset-thumbnails/log-a01-01.png`.
+
+The folder currently contains the 130 launch thumbnails plus the 1,000 expansion thumbnails.
 
 ## State
 
@@ -68,6 +70,11 @@ Important app state:
 - `draftKey`: settings dialog input value
 - `helpOpen`: Help modal open state
 - `activeHelpArticleId`: selected Help article id
+- `presetSearch`: expanded preset browser search query
+- `presetOutput`: expanded preset browser output filter, `all`, `image`, or `video`
+- `presetSurface`, `presetUseCase`, `presetStyle`, `presetEnvironment`, `presetFormat`: expanded preset browser filters
+- `expandedPresetGroups`: lazy-loaded expansion preset groups
+- `expansionLoading`: expansion catalog loading state
 - `generating`: render in progress flag
 - `results`: per-preset output states
 - `libraryItems`: local browser Library records
@@ -79,6 +86,17 @@ Runtime preset data lives in:
 ```text
 src/data/presets.ts
 ```
+
+Expansion catalog data lives in:
+
+```text
+src/data/presetExpansionCatalog.ts
+src/data/expandedPresets.ts
+```
+
+`src/data/presets.ts` contains the hand-tuned launch library. `src/data/presetExpansionCatalog.ts` contains the generated 1,000-record structured catalog. `src/data/expandedPresets.ts` adapts that catalog into runtime `Preset` records, including generated prompt baselines, filter metadata, model selection, aspect ratios, and thumbnail paths.
+
+The expansion catalog is code-split and lazy-loaded by the expanded preset browser so the initial app bundle stays focused on the launch experience.
 
 See [Launch Preset Library](./presets/launch-library.md) for counts, categories, thumbnails, and runtime shape.
 

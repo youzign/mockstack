@@ -19,9 +19,11 @@ import {
   Play,
   Settings,
   ShieldCheck,
+  Search,
   Sparkles,
   Trash2,
   Upload,
+  X,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -36,11 +38,21 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { imageModel, presets, videoModel, type InputType, type Preset } from "@/data/presets"
+import { imageModel, presets, videoModel, type InputType, type Preset, type PresetGroup } from "@/data/presets"
 
 type AppView = "create" | "library"
 type Route = "sales" | "special" | "app" | "thanks"
 type HelpArticleId = "first-mockup" | "fal-key" | "use-fal-key" | "troubleshooting"
+type PresetOutputFilter = "all" | "image" | "video"
+
+type PresetFilterMeta = {
+  surface: string
+  useCase: string
+  style: string
+  environment: string
+  format: string
+  searchableText: string
+}
 
 type Result = Preset & {
   status: "queued" | "uploading" | "generating" | "done" | "error"
@@ -348,6 +360,15 @@ function App() {
   const [helpOpen, setHelpOpen] = useState(false)
   const [activeHelpArticleId, setActiveHelpArticleId] = useState<HelpArticleId>("first-mockup")
   const [presetPickerOpen, setPresetPickerOpen] = useState(false)
+  const [presetSearch, setPresetSearch] = useState("")
+  const [presetOutput, setPresetOutput] = useState<PresetOutputFilter>("all")
+  const [presetSurface, setPresetSurface] = useState("All")
+  const [presetUseCase, setPresetUseCase] = useState("All")
+  const [presetStyle, setPresetStyle] = useState("All")
+  const [presetEnvironment, setPresetEnvironment] = useState("All")
+  const [presetFormat, setPresetFormat] = useState("All")
+  const [expandedPresetGroups, setExpandedPresetGroups] = useState<Record<InputType, PresetGroup> | null>(null)
+  const [expansionLoading, setExpansionLoading] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [results, setResults] = useState<Result[]>([])
   const [libraryItems, setLibraryItems] = useState<LibraryItem[]>(readLibraryItems)
@@ -357,16 +378,43 @@ function App() {
   const [editingResultId, setEditingResultId] = useState("")
 
   const group = presets[inputType]
+  const pickerGroup = expandedPresetGroups?.[inputType] ?? group
   const hint = uploadHints[inputType]
   const activeHelpArticle = helpArticles.find((article) => article.id === activeHelpArticleId) ?? helpArticles[0]
   const filteredPresets = useMemo(() => {
-    if (activeCategory === "All") return group.items
-    if (activeCategory === "Featured") return group.items.filter((preset) => preset.featured)
-    return group.items.filter((preset) => preset.category === activeCategory)
-  }, [activeCategory, group.items])
+    const category = group.categories.includes(activeCategory) ? activeCategory : "All"
+    if (category === "All") return group.items
+    if (category === "Featured") return group.items.filter((preset) => preset.featured)
+    return group.items.filter((preset) => preset.category === category)
+  }, [activeCategory, group.categories, group.items])
+  const presetFilterOptions = useMemo(() => getPresetFilterOptions(pickerGroup.items), [pickerGroup.items])
+  const expandedFilteredPresets = useMemo(
+    () =>
+      filterPresetsForExpandedPicker(pickerGroup.items, {
+        category: activeCategory,
+        output: presetOutput,
+        search: presetSearch,
+        surface: presetSurface,
+        useCase: presetUseCase,
+        style: presetStyle,
+        environment: presetEnvironment,
+        format: presetFormat,
+      }),
+    [
+      activeCategory,
+      pickerGroup.items,
+      presetEnvironment,
+      presetFormat,
+      presetOutput,
+      presetSearch,
+      presetStyle,
+      presetSurface,
+      presetUseCase,
+    ]
+  )
   const selectedPresets = useMemo(
-    () => group.items.filter((preset) => selected.has(preset.id)),
-    [group.items, selected]
+    () => pickerGroup.items.filter((preset) => selected.has(preset.id)),
+    [pickerGroup.items, selected]
   )
 
   useEffect(() => {
@@ -374,6 +422,18 @@ function App() {
     window.addEventListener("popstate", syncRoute)
     return () => window.removeEventListener("popstate", syncRoute)
   }, [])
+
+  useEffect(() => {
+    if (!presetPickerOpen || expandedPresetGroups || expansionLoading) return
+
+    setExpansionLoading(true)
+    import("@/data/expandedPresets")
+      .then((module) => setExpandedPresetGroups(module.expandedPresets))
+      .catch((error: unknown) => {
+        console.error("Failed to load preset expansion catalog", error)
+      })
+      .finally(() => setExpansionLoading(false))
+  }, [expandedPresetGroups, expansionLoading, presetPickerOpen])
 
   const canAdvance = Boolean(previewUrl)
   const canGenerate = Boolean(apiKey && previewUrl && selected.size > 0 && !generating)
@@ -397,6 +457,7 @@ function App() {
     setResults([])
     setStep(1)
     setPresetPickerOpen(false)
+    resetPresetBrowserFilters()
   }
 
   function handleFile(file: File) {
@@ -413,6 +474,16 @@ function App() {
     setResults([])
     setStep(1)
     setPresetPickerOpen(false)
+  }
+
+  function resetPresetBrowserFilters() {
+    setPresetSearch("")
+    setPresetOutput("all")
+    setPresetSurface("All")
+    setPresetUseCase("All")
+    setPresetStyle("All")
+    setPresetEnvironment("All")
+    setPresetFormat("All")
   }
 
   function togglePreset(id: string) {
@@ -533,7 +604,7 @@ function App() {
   async function generateMockups() {
     if (!canGenerate || !file) return
 
-    const selectedItems = group.items
+    const selectedItems = pickerGroup.items
       .filter((preset) => selected.has(preset.id))
       .map((preset) => ({ ...preset, status: "queued" as const }))
 
@@ -1127,15 +1198,32 @@ function App() {
         <DialogContent className="min-h-0 h-[calc(100vh-24px)] w-[calc(100vw-24px)] !max-w-none gap-0 overflow-hidden p-0 sm:h-[calc(100vh-48px)] sm:w-[calc(100vw-48px)] sm:!max-w-none">
           <PresetPickerWorkspace
             activeCategory={activeCategory}
-            categories={group.categories}
-            filteredPresets={filteredPresets}
+            categories={pickerGroup.categories}
+            filterOptions={presetFilterOptions}
+            filteredPresets={expandedFilteredPresets}
+            loading={expansionLoading}
+            outputFilter={presetOutput}
+            search={presetSearch}
             selected={selected}
             selectedCount={selected.size}
+            selectedEnvironment={presetEnvironment}
+            selectedFormat={presetFormat}
+            selectedStyle={presetStyle}
+            selectedSurface={presetSurface}
+            selectedUseCase={presetUseCase}
             title={hint.title}
-            totalCount={group.items.length}
+            totalCount={pickerGroup.items.length}
             onCategoryChange={setActiveCategory}
             onDone={() => setPresetPickerOpen(false)}
+            onEnvironmentChange={setPresetEnvironment}
+            onFormatChange={setPresetFormat}
+            onOutputChange={setPresetOutput}
+            onResetFilters={resetPresetBrowserFilters}
+            onSearchChange={setPresetSearch}
+            onStyleChange={setPresetStyle}
+            onSurfaceChange={setPresetSurface}
             onTogglePreset={togglePreset}
+            onUseCaseChange={setPresetUseCase}
           />
         </DialogContent>
       </Dialog>
@@ -1418,29 +1506,111 @@ function StepCard({ number, title, copy }: { number: string; title: string; copy
   )
 }
 
+function PresetFilterSelect({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string
+  options: string[]
+  value: string
+  onChange: (value: string) => void
+}) {
+  return (
+    <label className="min-w-0">
+      <span className="mb-1 block text-[10px] font-medium uppercase tracking-[0.06em] text-[#9a9a9a]">{label}</span>
+      <select
+        className="h-9 w-full rounded-md border border-black/10 bg-[#faf9f5] px-2.5 text-[12.5px] text-[#1a1a1a] outline-none transition focus:border-black/25 focus:ring-3 focus:ring-black/5"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      >
+        <option value="All">All</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </label>
+  )
+}
+
 function PresetPickerWorkspace({
   activeCategory,
   categories,
+  filterOptions,
   filteredPresets,
+  loading,
+  outputFilter,
+  search,
   selected,
   selectedCount,
+  selectedEnvironment,
+  selectedFormat,
+  selectedStyle,
+  selectedSurface,
+  selectedUseCase,
   title,
   totalCount,
   onCategoryChange,
   onDone,
+  onEnvironmentChange,
+  onFormatChange,
+  onOutputChange,
+  onResetFilters,
+  onSearchChange,
+  onStyleChange,
+  onSurfaceChange,
   onTogglePreset,
+  onUseCaseChange,
 }: {
   activeCategory: string
   categories: string[]
+  filterOptions: {
+    surfaces: string[]
+    useCases: string[]
+    styles: string[]
+    environments: string[]
+    formats: string[]
+  }
   filteredPresets: Preset[]
+  loading: boolean
+  outputFilter: PresetOutputFilter
+  search: string
   selected: Set<string>
   selectedCount: number
+  selectedEnvironment: string
+  selectedFormat: string
+  selectedStyle: string
+  selectedSurface: string
+  selectedUseCase: string
   title: string
   totalCount: number
   onCategoryChange: (category: string) => void
   onDone: () => void
+  onEnvironmentChange: (environment: string) => void
+  onFormatChange: (format: string) => void
+  onOutputChange: (output: PresetOutputFilter) => void
+  onResetFilters: () => void
+  onSearchChange: (search: string) => void
+  onStyleChange: (style: string) => void
+  onSurfaceChange: (surface: string) => void
   onTogglePreset: (id: string) => void
+  onUseCaseChange: (useCase: string) => void
 }) {
+  const visibleCount = filteredPresets.length
+  const filtersActive = Boolean(
+    search.trim() ||
+      outputFilter !== "all" ||
+      activeCategory !== "All" ||
+      selectedSurface !== "All" ||
+      selectedUseCase !== "All" ||
+      selectedStyle !== "All" ||
+      selectedEnvironment !== "All" ||
+      selectedFormat !== "All"
+  )
+
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[#faf9f5]">
       <div className="shrink-0 border-b border-black/10 bg-white px-5 py-4 sm:px-6">
@@ -1448,7 +1618,7 @@ function PresetPickerWorkspace({
           <div>
             <DialogTitle className="text-xl leading-6 tracking-[-0.015em]">{title}</DialogTitle>
             <DialogDescription className="mt-1 text-[13px]">
-              Browse {totalCount} launch presets. Each selected scene becomes one generated mockup.
+              Browse {totalCount} presets. {loading ? "Loading expansion catalog..." : `${visibleCount} match the current filters.`}
             </DialogDescription>
           </div>
           <div className="text-left text-[13px] sm:text-right">
@@ -1459,7 +1629,51 @@ function PresetPickerWorkspace({
       </div>
 
       <div className="shrink-0 border-b border-black/10 bg-white px-5 py-3 sm:px-6">
-        <div className="flex gap-1.5 overflow-x-auto pb-1">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <label className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#9a9a9a]" />
+              <Input
+                className="h-10 rounded-full border-black/10 bg-[#faf9f5] pl-9 pr-9 text-[13px]"
+                placeholder="Search surfaces, use cases, styles..."
+                value={search}
+                onChange={(event) => onSearchChange(event.target.value)}
+              />
+              {search && (
+                <button
+                  className="absolute right-3 top-1/2 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-[#9a9a9a] transition hover:bg-black/5 hover:text-[#1a1a1a]"
+                  type="button"
+                  onClick={() => onSearchChange("")}
+                >
+                  <X className="size-3.5" />
+                </button>
+              )}
+            </label>
+
+            <div className="grid grid-cols-3 gap-1 rounded-full border border-black/10 bg-[#faf9f5] p-1 text-xs lg:w-[260px]">
+              {[
+                ["all", "All"],
+                ["image", "Images"],
+                ["video", "Video"],
+              ].map(([value, label]) => (
+                <button
+                  className={cn(
+                    "rounded-full px-3 py-1.5 transition",
+                    outputFilter === value
+                      ? "bg-[#1a1a1a] text-white"
+                      : "text-[#6b6b6b] hover:bg-white"
+                  )}
+                  key={value}
+                  type="button"
+                  onClick={() => onOutputChange(value as PresetOutputFilter)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex gap-1.5 overflow-x-auto pb-1">
           {categories.map((category) => {
             const active = category === activeCategory
             return (
@@ -1479,20 +1693,51 @@ function PresetPickerWorkspace({
               </button>
             )
           })}
+          </div>
+
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+            <PresetFilterSelect label="Surface" options={filterOptions.surfaces} value={selectedSurface} onChange={onSurfaceChange} />
+            <PresetFilterSelect label="Use case" options={filterOptions.useCases} value={selectedUseCase} onChange={onUseCaseChange} />
+            <PresetFilterSelect label="Style" options={filterOptions.styles} value={selectedStyle} onChange={onStyleChange} />
+            <PresetFilterSelect label="Environment" options={filterOptions.environments} value={selectedEnvironment} onChange={onEnvironmentChange} />
+            <PresetFilterSelect label="Format" options={filterOptions.formats} value={selectedFormat} onChange={onFormatChange} />
+          </div>
+
+          {filtersActive && (
+            <button
+              className="w-fit text-[12px] font-medium text-[#6b6b6b] underline-offset-4 transition hover:text-[#1a1a1a] hover:underline"
+              type="button"
+              onClick={onResetFilters}
+            >
+              Clear filters
+            </button>
+          )}
         </div>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:px-6">
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(156px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(178px,1fr))]">
-          {filteredPresets.map((preset) => (
-            <PresetCard
-              key={preset.id}
-              preset={preset}
-              selected={selected.has(preset.id)}
-              onToggle={onTogglePreset}
-            />
-          ))}
-        </div>
+        {filteredPresets.length > 0 ? (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(156px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(178px,1fr))]">
+            {filteredPresets.map((preset) => (
+              <PresetCard
+                key={preset.id}
+                preset={preset}
+                selected={selected.has(preset.id)}
+                onToggle={onTogglePreset}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex min-h-[260px] flex-col items-center justify-center rounded-[10px] border border-dashed border-black/15 bg-white px-6 text-center">
+            <p className="text-sm font-medium text-[#1a1a1a]">No presets match these filters.</p>
+            <p className="mt-1 max-w-[360px] text-[12.5px] leading-5 text-[#6b6b6b]">
+              Clear a filter or search for a broader surface, use case, or scene.
+            </p>
+            <Button className="mt-4 h-8 px-4 text-xs" type="button" variant="outline" onClick={onResetFilters}>
+              Clear filters
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="flex shrink-0 flex-col gap-3 border-t border-black/10 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
@@ -1537,22 +1782,7 @@ function PresetCard({
           border: preset.border ? "1px solid rgba(0,0,0,0.08)" : undefined,
         }}
       >
-        {preset.thumbnail ? (
-          <img
-            className="h-full w-full object-cover"
-            src={preset.thumbnail}
-            alt=""
-            loading="lazy"
-          />
-        ) : (
-          <>
-            <span className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(0,0,0,0.06))]" />
-            <span
-              className="size-[44%] rounded shadow-sm"
-              style={{ background: contrastBlock(preset.color) }}
-            />
-          </>
-        )}
+        <PresetThumbnail preset={preset} />
         {preset.video && (
           <span className="absolute bottom-1.5 left-1.5 flex size-5 items-center justify-center rounded-full bg-black/55">
             <Play className="size-2.5 fill-white text-white" />
@@ -1573,6 +1803,32 @@ function PresetCard({
         </span>
       </span>
     </button>
+  )
+}
+
+function PresetThumbnail({ preset }: { preset: Preset }) {
+  const [failed, setFailed] = useState(false)
+
+  if (preset.thumbnail && !failed) {
+    return (
+      <img
+        className="h-full w-full object-cover"
+        src={preset.thumbnail}
+        alt=""
+        loading="lazy"
+        onError={() => setFailed(true)}
+      />
+    )
+  }
+
+  return (
+    <>
+      <span className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(0,0,0,0.06))]" />
+      <span
+        className="size-[44%] rounded shadow-sm"
+        style={{ background: contrastBlock(preset.color) }}
+      />
+    </>
   )
 }
 
@@ -1870,6 +2126,157 @@ function MockstackLoader({ dwellMs = 6000, messages }: { dwellMs?: number; messa
       <span className="text-[10px] uppercase tracking-[0.06em] text-[#9a9a9a]">{label}</span>
     </div>
   )
+}
+
+function getPresetFilterOptions(items: Preset[]) {
+  const surfaces = new Set<string>()
+  const useCases = new Set<string>()
+  const styles = new Set<string>()
+  const environments = new Set<string>()
+  const formats = new Set<string>()
+
+  items.forEach((preset) => {
+    const meta = getPresetFilterMeta(preset)
+    surfaces.add(meta.surface)
+    useCases.add(meta.useCase)
+    styles.add(meta.style)
+    environments.add(meta.environment)
+    formats.add(meta.format)
+  })
+
+  return {
+    surfaces: sortFilterOptions([...surfaces]),
+    useCases: sortFilterOptions([...useCases]),
+    styles: sortFilterOptions([...styles]),
+    environments: sortFilterOptions([...environments]),
+    formats: sortFilterOptions([...formats]),
+  }
+}
+
+function filterPresetsForExpandedPicker(
+  items: Preset[],
+  filters: {
+    category: string
+    output: PresetOutputFilter
+    search: string
+    surface: string
+    useCase: string
+    style: string
+    environment: string
+    format: string
+  }
+) {
+  const query = filters.search.trim().toLowerCase()
+
+  return items.filter((preset) => {
+    const meta = getPresetFilterMeta(preset)
+
+    if (filters.category === "Featured" && !preset.featured) return false
+    if (filters.category !== "All" && filters.category !== "Featured" && preset.category !== filters.category) return false
+    if (filters.output === "image" && preset.video) return false
+    if (filters.output === "video" && !preset.video) return false
+    if (filters.surface !== "All" && meta.surface !== filters.surface) return false
+    if (filters.useCase !== "All" && meta.useCase !== filters.useCase) return false
+    if (filters.style !== "All" && meta.style !== filters.style) return false
+    if (filters.environment !== "All" && meta.environment !== filters.environment) return false
+    if (filters.format !== "All" && meta.format !== filters.format) return false
+    if (query && !meta.searchableText.includes(query)) return false
+
+    return true
+  })
+}
+
+function getPresetFilterMeta(preset: Preset): PresetFilterMeta {
+  const text = [
+    preset.id,
+    preset.name,
+    preset.category,
+    preset.pack,
+    preset.surface,
+    preset.useCase,
+    preset.style,
+    preset.environment,
+    preset.format,
+    preset.prompt,
+    ...(preset.tags ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+
+  return {
+    surface: preset.surface ?? inferSurface(preset.category, text),
+    useCase: preset.useCase ?? inferUseCase(preset.category, text),
+    style: preset.style ?? inferStyle(text),
+    environment: preset.environment ?? inferEnvironment(preset.category, text),
+    format: preset.format ?? formatFromAspectRatio(preset.aspectRatio),
+    searchableText: text,
+  }
+}
+
+function inferSurface(category: string, text: string) {
+  if (text.includes("t-shirt") || text.includes("tee")) return "T-shirt"
+  if (text.includes("hoodie") || text.includes("sweatshirt") || text.includes("crewneck")) return "Hoodie / sweatshirt"
+  if (text.includes("cap") || text.includes("beanie") || text.includes("hat")) return "Headwear"
+  if (text.includes("mug") || text.includes("cup") || text.includes("bottle") || text.includes("tumbler")) return "Drinkware"
+  if (text.includes("tote") || text.includes("bag") || text.includes("backpack")) return "Bag"
+  if (text.includes("business card") || text.includes("letterhead") || text.includes("envelope")) return "Stationery"
+  if (text.includes("box") || text.includes("mailer") || text.includes("packaging") || text.includes("pouch")) return "Packaging"
+  if (text.includes("billboard") || text.includes("sign") || text.includes("storefront") || text.includes("poster")) return "Signage"
+  if (text.includes("iphone") || text.includes("phone")) return "Phone"
+  if (text.includes("macbook") || text.includes("laptop")) return "Laptop"
+  if (text.includes("ipad") || text.includes("tablet")) return "Tablet"
+  if (text.includes("browser") || text.includes("website")) return "Browser"
+  if (text.includes("book") || text.includes("ebook") || text.includes("course")) return "Info product"
+  if (text.includes("cosmetic") || text.includes("skincare") || text.includes("dropper") || text.includes("soap")) return "Beauty product"
+  if (category === "Video") return "Motion scene"
+  return category
+}
+
+function inferUseCase(category: string, text: string) {
+  if (category === "Video") return "Motion ad"
+  if (text.includes("app") || text.includes("dashboard") || text.includes("browser") || text.includes("website")) return "Digital launch"
+  if (text.includes("instagram") || text.includes("youtube") || text.includes("linkedin") || text.includes("social")) return "Social"
+  if (text.includes("shipping") || text.includes("box") || text.includes("label") || text.includes("packaging")) return "Packaging"
+  if (text.includes("storefront") || text.includes("billboard") || text.includes("retail") || text.includes("shelf")) return "Retail"
+  if (text.includes("book") || text.includes("course") || text.includes("ebook")) return "Creator product"
+  if (text.includes("business card") || text.includes("letterhead") || text.includes("office")) return "Client presentation"
+  return "Brand mockup"
+}
+
+function inferStyle(text: string) {
+  if (text.includes("premium") || text.includes("luxury") || text.includes("gold") || text.includes("foil")) return "Premium"
+  if (text.includes("streetwear") || text.includes("urban") || text.includes("concrete")) return "Streetwear"
+  if (text.includes("cozy") || text.includes("bed") || text.includes("linen")) return "Cozy"
+  if (text.includes("corporate") || text.includes("office") || text.includes("professional")) return "Corporate"
+  if (text.includes("dramatic") || text.includes("black") || text.includes("night")) return "Dramatic"
+  if (text.includes("minimal") || text.includes("white") || text.includes("clean")) return "Minimal"
+  if (text.includes("outdoor") || text.includes("hike") || text.includes("beach") || text.includes("garden")) return "Lifestyle"
+  return "Commercial"
+}
+
+function inferEnvironment(category: string, text: string) {
+  if (text.includes("cafe") || text.includes("coffee")) return "Cafe"
+  if (text.includes("desk") || text.includes("office") || text.includes("coworking")) return "Desk / office"
+  if (text.includes("kitchen") || text.includes("bathroom") || text.includes("bed") || text.includes("home")) return "Home"
+  if (text.includes("store") || text.includes("retail") || text.includes("shelf")) return "Retail"
+  if (text.includes("outdoor") || text.includes("hike") || text.includes("beach") || text.includes("garden") || text.includes("rooftop")) return "Outdoor"
+  if (text.includes("street") || text.includes("subway") || text.includes("city")) return "Urban"
+  if (text.includes("studio") || text.includes("sweep") || text.includes("backdrop") || text.includes("pedestal")) return "Studio"
+  if (category === "Video") return "Motion"
+  return "Studio"
+}
+
+function formatFromAspectRatio(aspectRatio: Preset["aspectRatio"]) {
+  if (aspectRatio === "9:16" || aspectRatio === "4:5" || aspectRatio === "3:4" || aspectRatio === "2:3") return "Portrait"
+  if (aspectRatio === "16:9" || aspectRatio === "21:9" || aspectRatio === "3:2" || aspectRatio === "4:3") return "Landscape"
+  if (aspectRatio === "4:1" || aspectRatio === "8:1") return "Wide"
+  if (aspectRatio === "1:4" || aspectRatio === "1:8") return "Tall"
+  return "Square"
+}
+
+function sortFilterOptions(options: string[]) {
+  return options.filter(Boolean).sort((a, b) => a.localeCompare(b))
 }
 
 function buildPresetPrompt(basePrompt: string, customDirection: string) {

@@ -132,18 +132,26 @@ Current card layout:
 
 ## Current Asset Set
 
-All launch preset thumbnails have been generated and saved in:
+All launch and expansion preset thumbnails have been generated and saved in:
 
 ```text
 public/preset-thumbnails/
 ```
 
-File names use the lowercase preset ID:
+Launch file names use the lowercase preset ID:
 
 ```text
 LOG-001 -> public/preset-thumbnails/log-001.png
 SCR-001 -> public/preset-thumbnails/scr-001.png
 PRO-001 -> public/preset-thumbnails/pro-001.png
+```
+
+Expansion file names use the lowercase expansion ID:
+
+```text
+LOG-A01-01 -> public/preset-thumbnails/log-a01-01.png
+SCR-P01-01 -> public/preset-thumbnails/scr-p01-01.png
+PRO-S01-01 -> public/preset-thumbnails/pro-s01-01.png
 ```
 
 Each preset has a `thumbnail` field:
@@ -155,4 +163,64 @@ Each preset has a `thumbnail` field:
 }
 ```
 
-The generated files were resized to `512x512` PNGs for more practical loading in the preset grid and future landing-page use.
+The generated expansion files were resized to `512x512` PNGs for practical loading in the preset grid and future landing-page use.
+
+Current thumbnail counts:
+
+- Launch thumbnails: 130
+- Expansion thumbnails: 1,000
+- Total thumbnails: 1,130
+- Missing expansion thumbnails: 0
+
+## Expansion Thumbnail Pipeline
+
+The 1,000-preset expansion library used this resumable script:
+
+```bash
+npm run presets:thumbs:dry
+npm run presets:thumbs
+```
+
+The dry run writes the prompt manifest to:
+
+```text
+docs/presets/thumbnail-prompts-expansion.json
+```
+
+The real generation command requires one of:
+
+```text
+FAL_KEY
+FAL_API_KEY
+FALAI_API_KEY
+```
+
+Useful scoped runs:
+
+```bash
+node scripts/generate-expansion-thumbnails.mjs --dry-run --input=logo --pack=LOG-A01
+node scripts/generate-expansion-thumbnails.mjs --input=logo --pack=LOG-A01
+node scripts/generate-expansion-thumbnails.mjs --limit=25
+```
+
+The script skips existing files by default, resizes outputs to `512x512`, and retries transient generation/download failures. Use `--overwrite` only when intentionally regenerating assets.
+
+Expansion thumbnails use:
+
+```text
+public/preset-thumbnails/{lowercase-expansion-id}.png
+```
+
+Example:
+
+```text
+LOG-A01-01 -> public/preset-thumbnails/log-a01-01.png
+```
+
+The app points expansion presets at these paths. Thumbnail images fail gracefully to the generated color fallback if a file is missing or fails to load, but the committed expansion set is complete.
+
+## Generation Notes
+
+During expansion generation, one thumbnail prompt issue was corrected: the model sometimes added the word `Mockstack` to dark apparel. The final prompt template explicitly asks for only the uploaded three-bar mark, no words, letters, numbers, captions, or typography, with high contrast on dark and light surfaces.
+
+The generator also includes retry logic because a product thumbnail download timed out once during the full run. The retry path handled subsequent transient failures without restarting the whole job.

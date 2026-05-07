@@ -7,6 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "presets:catalog": "node scripts/generate-expansion-catalog.mjs",
+    "presets:thumbs:dry": "node scripts/generate-expansion-thumbnails.mjs --dry-run",
+    "presets:thumbs": "node scripts/generate-expansion-thumbnails.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

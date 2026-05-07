@@ -20,4 +20,6 @@ Mockstack is a browser-based BYOK mockup generator. Users upload a logo, screens
 ## Presets And Assets
 
 - [Launch Preset Library](./presets/launch-library.md)
+- [1,000 Preset Expansion List](./presets/1000-preset-expansion-list.md)
+- [1,000 Preset Thumbnail Prompt Manifest](./presets/thumbnail-prompts-expansion.json)
 - [Thumbnail Generation Workflow](./thumbnail-generation.md)

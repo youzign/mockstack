@@ -20,6 +20,13 @@ export type Preset = {
   id: string
   name: string
   category: string
+  pack?: string
+  surface?: string
+  useCase?: string
+  style?: string
+  environment?: string
+  format?: string
+  tags?: string[]
   color: string
   thumbnail?: string
   prompt: string
