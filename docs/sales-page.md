@@ -16,10 +16,10 @@ The page should speak to sophisticated buyers who already know the mockup market
 
 The launch offer includes:
 
-- Mockstack Web App with 130 hand-tuned presets across logos, screenshots, product photos, and deterministic video.
+- Mockstack Web App with 1,130 templates across logos, screenshots, product photos, and mockup video.
 - BYOK fal.ai setup so AI usage is billed directly by fal.ai with zero Mockstack markup.
 - Commercial license for client work, Etsy listings, agency deliverables, ads, portfolios, and sales pages.
-- All future preset packs and app updates included for life.
+- All future template packs and app updates included for life.
 - Full source code access with a permissive MIT license, including the right to self-host, fork, modify, and resell.
 - 100-day money-back guarantee.
 
@@ -42,13 +42,14 @@ Launch bonuses:
 The current sales page should keep this narrative order:
 
 1. Hero: all-in-one mockup app, lifetime framing, BYOK mechanism, walkthrough placeholder, CTA.
-2. How it works: upload, choose presets, generate.
+2. How it works: upload, choose templates, generate.
 3. Problem: subscriptions, hidden AI markups, dead vendors, fragmented workflows.
 4. Introducing Mockstack with 3D cover and included benefits.
-5. Preset abundance gallery using real preset names and thumbnails.
-6. What’s inside feature blocks with visual illustrations.
-7. Launch bonuses using the current three-bonus stack.
-8. Guarantee, FAQ, founder note, and final dark CTA.
+5. Template abundance gallery using the generated full-library manifest, real template names, and thumbnails.
+6. Custom template prompt section showing that templates can be adapted with plain-language directions.
+7. What’s inside feature blocks with visual illustrations.
+8. Launch bonuses using the current three-bonus stack.
+9. Guarantee, FAQ, founder note, and final dark CTA.
 
 ## Visual Assets
 
@@ -63,5 +64,9 @@ Key sales visuals currently live in `public/`:
 - `commercial-license.png`
 - `founder-pledge.png`
 - `founder.png`
+- `landing-custom/before-black-shirt.png`
+- `landing-custom/after-red-floral-shirt.png`
+
+The landing gallery manifest is generated at `public/preset-gallery.json` and currently covers 1,130 templates: 396 logo, 237 screenshot, 497 product, and 158 video.
 
 `docs/index-im.html` is a legacy sales draft and should not be treated as current copy.
