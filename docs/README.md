@@ -2,6 +2,9 @@
 
 Mockstack is a browser-based BYOK mockup generator. Users upload a logo, screenshot, or product photo, choose mockup contexts, and generate images or videos through their own fal.ai API key.
 
+Public repo: `https://github.com/youzign/mockstack/`
+Packaged buyer-facing site: `https://getmockstack.com`
+
 ## Core Docs
 
 - [Product Overview](./product-overview.md)
@@ -16,6 +19,7 @@ Mockstack is a browser-based BYOK mockup generator. Users upload a logo, screens
 - [Results Panel](./features/results.md)
 - [Local Library](./features/library.md)
 - [Help Center](./features/help.md)
+- [PWA Install](./features/pwa-install.md)
 
 ## Presets And Assets
 

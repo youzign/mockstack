@@ -268,52 +268,22 @@
 }
 
 .im-vsl {
-  display: grid;
   width: min(920px, calc(100vw - 48px));
   max-width: 920px;
-  height: clamp(460px, 52vw, 580px);
   margin: 36px auto 0;
-  place-items: center;
   position: relative;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background:
-    radial-gradient(circle at 50% 44%, rgba(255, 228, 92, 0.32), transparent 32%),
-    linear-gradient(135deg, #f7f4eb, #ffffff);
+  background: #111;
 }
 
-.im-vsl-play {
-  display: grid;
-  width: 94px;
-  height: 94px;
-  place-items: center;
-  border: 1px solid var(--fg-1);
-  border-radius: 999px;
-  background: var(--im-yellow);
-  color: var(--fg-1);
-  cursor: pointer;
-}
-
-.im-vsl-tag,
-.im-vsl-len {
-  position: absolute;
-  bottom: 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
-  padding: 8px 12px;
-  color: var(--fg-2);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.im-vsl-tag {
-  left: 16px;
-}
-
-.im-vsl-len {
-  right: 16px;
+.im-vsl iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .im-cta-block {
@@ -846,6 +816,116 @@
   font-weight: 800;
 }
 
+.im-pwa-section {
+  background:
+    linear-gradient(180deg, rgba(26, 26, 26, 0.04), rgba(255, 255, 255, 0) 260px),
+    var(--bg-secondary);
+}
+
+.im-pwa-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.84fr) minmax(420px, 1.16fr);
+  gap: 44px;
+  align-items: center;
+}
+
+.im-pwa-copy .im-h2,
+.im-pwa-copy .im-lede,
+.im-pwa-copy .im-copy {
+  margin-left: 0;
+  text-align: left;
+}
+
+.im-pwa-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.im-pwa-benefits span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--fg-2);
+  font-size: 12px;
+  font-weight: 750;
+  padding: 9px 12px;
+}
+
+.im-pwa-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.im-pwa-screenshot {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+  padding: 10px;
+  overflow: hidden;
+  box-shadow: 0 22px 62px rgba(0, 0, 0, 0.1);
+}
+
+.im-pwa-screenshot img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+}
+
+.im-pwa-icon-card {
+  position: absolute;
+  right: 26px;
+  bottom: -28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px 14px;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.im-pwa-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 16px;
+  background: #faf9f5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 26px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.im-pwa-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.im-pwa-icon-card strong,
+.im-pwa-icon-card span {
+  display: block;
+  white-space: nowrap;
+}
+
+.im-pwa-icon-card strong {
+  color: var(--fg-1);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.im-pwa-icon-card span {
+  margin-top: 2px;
+  color: var(--fg-3);
+  font-size: 12px;
+}
+
 .price-row {
   display: flex;
   align-items: baseline;
@@ -1233,7 +1313,8 @@ th {
   .im-cover-row,
   .im-agitation-grid,
   .im-cost-row,
-  .im-custom-template-grid {
+  .im-custom-template-grid,
+  .im-pwa-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1256,15 +1337,6 @@ th {
 
   .im-vsl {
     width: min(100%, calc(100vw - 24px));
-    height: clamp(260px, 72vw, 390px);
-  }
-
-  .im-vsl-tag {
-    right: 16px;
-  }
-
-  .im-vsl-len {
-    display: none;
   }
 
   .im-cta.big,
@@ -1279,5 +1351,21 @@ th {
   .im-custom-arrow {
     margin: -2px auto;
     transform: rotate(90deg);
+  }
+
+  .im-pwa-screenshot {
+    padding: 7px;
+    border-radius: 16px;
+  }
+
+  .im-pwa-screenshot img {
+    border-radius: 11px;
+  }
+
+  .im-pwa-icon-card {
+    position: static;
+    width: max-content;
+    max-width: 100%;
+    margin: 14px auto 0;
   }
 }

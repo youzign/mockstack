@@ -20,7 +20,7 @@ The launch offer includes:
 - BYOK fal.ai setup so AI usage is billed directly by fal.ai with zero Mockstack markup.
 - Commercial license for client work, Etsy listings, agency deliverables, ads, portfolios, and sales pages.
 - All future template packs and app updates included for life.
-- Full source code access with a permissive MIT license, including the right to self-host, fork, modify, and resell.
+- Full source code access through the public GitHub repo at `https://github.com/youzign/mockstack/`, including the right to inspect, clone, fork, modify, and self-host.
 - 100-day money-back guarantee.
 
 Launch bonuses:
@@ -28,6 +28,14 @@ Launch bonuses:
 - Source Code + Right-to-Self-Host.
 - 30-Day BYOK Concierge.
 - Money Moves: 25 Plug-and-Play Workflows.
+
+Current Stripe checkout link for the bottom CTA:
+
+```text
+https://buy.stripe.com/4gMeV5bzq27C6e4a4G3Nm07
+```
+
+The founding-buyer countdown currently targets Friday 15 May 2026 at 11:59 PM New York time.
 
 ## Copy Rules
 
@@ -47,9 +55,10 @@ The current sales page should keep this narrative order:
 4. Introducing Mockstack with 3D cover and included benefits.
 5. Template abundance gallery using the generated full-library manifest, real template names, and thumbnails.
 6. Custom template prompt section showing that templates can be adapted with plain-language directions.
-7. What’s inside feature blocks with visual illustrations.
-8. Launch bonuses using the current three-bonus stack.
-9. Guarantee, FAQ, founder note, and final dark CTA.
+7. Desktop PWA section showing Chrome install benefits and desktop-app feel.
+8. What’s inside feature blocks with visual illustrations.
+9. Launch bonuses using the current three-bonus stack.
+10. Guarantee, FAQ, founder note, and final dark CTA.
 
 ## Visual Assets
 
@@ -66,6 +75,7 @@ Key sales visuals currently live in `public/`:
 - `founder.png`
 - `landing-custom/before-black-shirt.png`
 - `landing-custom/after-red-floral-shirt.png`
+- `landing-custom/pwa-desktop-screenshot.png`
 
 The landing gallery manifest is generated at `public/preset-gallery.json` and currently covers 1,130 templates: 396 logo, 237 screenshot, 497 product, and 158 video.
 

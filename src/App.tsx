@@ -42,8 +42,14 @@ import { imageModel, presets, videoModel, type InputType, type Preset, type Pres
 
 type AppView = "create" | "library"
 type Route = "sales" | "special" | "app" | "thanks"
-type HelpArticleId = "first-mockup" | "fal-key" | "use-fal-key" | "troubleshooting"
+type HelpArticleId = "first-mockup" | "fal-key" | "use-fal-key" | "desktop-install" | "source-code" | "troubleshooting"
 type PresetOutputFilter = "all" | "image" | "video"
+type InstallPromptOutcome = "accepted" | "dismissed"
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: InstallPromptOutcome; platform: string }>
+}
 
 type PresetFilterMeta = {
   surface: string
@@ -152,7 +158,7 @@ const generateLoaderMessages = [
 
 const libraryStorageKey = "mockstack-library"
 const checkoutUrl =
-  import.meta.env.VITE_STRIPE_PAYMENT_LINK || "https://buy.stripe.com/6oU28javmh2wbyogt43Nm06"
+  import.meta.env.VITE_STRIPE_PAYMENT_LINK || "https://buy.stripe.com/4gMeV5bzq27C6e4a4G3Nm07"
 
 const helpArticles: HelpArticle[] = [
   {
@@ -292,6 +298,68 @@ const helpArticles: HelpArticle[] = [
     ],
   },
   {
+    id: "desktop-install",
+    title: "Install as a desktop app",
+    summary: "Install Mockstack from Chrome or Edge so it opens like a desktop app.",
+    sections: [
+      {
+        title: "1. Open Mockstack in Chrome or Edge",
+        body: (
+          <>
+            Open{" "}
+            <a className="underline underline-offset-4" href="https://getmockstack.com/app" target="_blank" rel="noreferrer">
+              getmockstack.com/app
+            </a>{" "}
+            in Chrome, Edge, or another Chromium browser. Safari and Firefox may not show the same install button.
+          </>
+        ),
+      },
+      {
+        title: "2. Use the browser install action",
+        body: "Click the install icon in the address bar if it appears. If it does not, open the browser menu and choose Install Mockstack, Install page as app, or Apps > Install this site as an app.",
+      },
+      {
+        title: "3. Launch it from your desktop",
+        body: "After installing, Mockstack opens in its own app-style window and can be pinned to your Dock, taskbar, Start menu, or app launcher for quick access.",
+      },
+      {
+        title: "4. Keep your local settings",
+        body: "Your fal.ai key, settings, and local Library stay on that machine unless you clear browser data or uninstall the app.",
+      },
+    ],
+  },
+  {
+    id: "source-code",
+    title: "Download the source code",
+    summary: "Mockstack's source code is public on GitHub for buyers who want to inspect, clone, fork, or self-host it.",
+    sections: [
+      {
+        title: "GitHub repository",
+        body: (
+          <>
+            The source code is available at{" "}
+            <a className="underline underline-offset-4" href="https://github.com/youzign/mockstack/" target="_blank" rel="noreferrer">
+              github.com/youzign/mockstack
+            </a>
+            .
+          </>
+        ),
+      },
+      {
+        title: "Download a ZIP",
+        body: "On GitHub, click the green Code button, then choose Download ZIP. Unzip it on your computer and open the folder in your editor.",
+      },
+      {
+        title: "Clone with Git",
+        body: "If you use Git, run: git clone https://github.com/youzign/mockstack.git",
+      },
+      {
+        title: "Run locally",
+        body: "Install dependencies with npm install, start the app with npm run dev, then open the local URL shown in your terminal.",
+      },
+    ],
+  },
+  {
     id: "troubleshooting",
     title: "Troubleshooting",
     summary: "Check the common fal.ai account and usage issues when a generation fails.",
@@ -376,6 +444,8 @@ function App() {
   const [editTarget, setEditTarget] = useState<Result | null>(null)
   const [editPrompt, setEditPrompt] = useState("")
   const [editingResultId, setEditingResultId] = useState("")
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+  const [appInstalled, setAppInstalled] = useState(() => isStandaloneDisplay())
 
   const group = presets[inputType]
   const pickerGroup = expandedPresetGroups?.[inputType] ?? group
@@ -424,6 +494,25 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const handleBeforeInstallPrompt = (event: Event) => {
+      event.preventDefault()
+      setInstallPrompt(event as BeforeInstallPromptEvent)
+      setAppInstalled(false)
+    }
+    const handleAppInstalled = () => {
+      setInstallPrompt(null)
+      setAppInstalled(true)
+    }
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+    window.addEventListener("appinstalled", handleAppInstalled)
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+      window.removeEventListener("appinstalled", handleAppInstalled)
+    }
+  }, [])
+
+  useEffect(() => {
     if (!presetPickerOpen || expandedPresetGroups || expansionLoading) return
 
     setExpansionLoading(true)
@@ -442,6 +531,15 @@ function App() {
     window.history.pushState(null, "", path)
     setRoute(getRoute(path))
     window.scrollTo({ top: 0, behavior: "auto" })
+  }
+
+  async function installApp() {
+    if (!installPrompt) return
+    const promptEvent = installPrompt
+    setInstallPrompt(null)
+    await promptEvent.prompt()
+    const choice = await promptEvent.userChoice
+    if (choice.outcome === "accepted") setAppInstalled(true)
   }
 
   function changeInputType(nextType: InputType) {
@@ -719,7 +817,14 @@ function App() {
   }
 
   if (route === "thanks") {
-    return <ThankYouPage onNavigate={navigate} />
+    return (
+      <ThankYouPage
+        appInstalled={appInstalled}
+        canInstall={Boolean(installPrompt)}
+        onInstall={installApp}
+        onNavigate={navigate}
+      />
+    )
   }
 
   return (
@@ -768,6 +873,12 @@ function App() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2.5">
+            {installPrompt && !appInstalled && (
+              <Button className="hidden h-9 gap-1.5 px-3 text-xs sm:inline-flex" size="sm" variant="outline" onClick={installApp}>
+                <Download className="size-3.5" />
+                Install
+              </Button>
+            )}
             <Button
               className="sm:hidden"
               size="sm"
@@ -861,6 +972,28 @@ function App() {
                         </Button>
                       </div>
                     )}
+                    {activeHelpArticle.id === "desktop-install" && (
+                      <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                        <Button
+                          nativeButton={false}
+                          render={<a href="https://getmockstack.com/app" target="_blank" rel="noreferrer" />}
+                        >
+                          Open app URL
+                          <ExternalLink className="size-4" />
+                        </Button>
+                      </div>
+                    )}
+                    {activeHelpArticle.id === "source-code" && (
+                      <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                        <Button
+                          nativeButton={false}
+                          render={<a href="https://github.com/youzign/mockstack/" target="_blank" rel="noreferrer" />}
+                        >
+                          Open GitHub repo
+                          <ExternalLink className="size-4" />
+                        </Button>
+                      </div>
+                    )}
                   </article>
                 </div>
               </DialogContent>
@@ -914,7 +1047,7 @@ function App() {
       </header>
 
       {view === "library" ? (
-        <LibraryView items={libraryItems} onClear={clearLibrary} onRemove={removeLibraryItem} />
+        <LibraryView items={libraryItems} onClear={clearLibrary} onRemove={removeLibraryItem} onView={setPreviewItem} />
       ) : (
       <main className="mx-auto grid w-full max-w-[1180px] flex-1 grid-cols-1 gap-6 px-4 py-6 sm:px-8 lg:grid-cols-2 lg:gap-8">
         <section className="min-w-0">
@@ -1178,16 +1311,16 @@ function App() {
       )}
 
       <Dialog open={Boolean(previewItem)} onOpenChange={(open) => !open && setPreviewItem(null)}>
-        <DialogContent className="w-[calc(100vw-32px)] max-w-none p-4 sm:w-[min(1120px,calc(100vw-64px))] sm:p-5">
+        <DialogContent className="!w-[calc(100vw-24px)] !max-w-none p-4 sm:!w-[min(1280px,calc(100vw-64px))] sm:p-5">
           <DialogHeader>
             <DialogTitle>{previewItem?.name ?? "Preview"}</DialogTitle>
           </DialogHeader>
           {previewItem && (
-            <div className="flex h-[min(78vh,820px)] items-center justify-center overflow-hidden rounded-lg border border-black/10 bg-[#f5f4ef]">
+            <div className="flex h-[min(78vh,820px)] w-full items-center justify-center overflow-hidden rounded-lg border border-black/10 bg-[#f5f4ef]">
               {previewItem.mediaType === "video" ? (
-                <video className="h-full w-full object-contain" src={previewItem.mediaUrl} controls autoPlay loop muted playsInline />
+                <video className="max-h-full max-w-full object-contain" src={previewItem.mediaUrl} controls autoPlay loop muted playsInline />
               ) : (
-                <img className="h-full w-full object-contain" src={previewItem.mediaUrl} alt={previewItem.name} />
+                <img className="max-h-full max-w-full object-contain" src={previewItem.mediaUrl} alt={previewItem.name} />
               )}
             </div>
           )}
@@ -1398,49 +1531,82 @@ function SpecialPage() {
   )
 }
 
-function ThankYouPage({ onNavigate }: { onNavigate: (path: string) => void }) {
+function ThankYouPage({
+  appInstalled,
+  canInstall,
+  onInstall,
+  onNavigate,
+}: {
+  appInstalled: boolean
+  canInstall: boolean
+  onInstall: () => void
+  onNavigate: (path: string) => void
+}) {
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#1a1a1a]">
-      <main className="mx-auto flex min-h-screen w-full max-w-[860px] flex-col justify-center px-4 py-10 sm:px-8">
-        <div className="mb-6 flex items-center gap-2.5">
-          <img className="size-7" src="/logo-mark.svg" alt="" />
-          <span className="text-[15px] font-medium">Mockstack</span>
+      <main className="mx-auto flex min-h-screen w-full max-w-[960px] flex-col justify-center px-4 py-10 sm:px-8">
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <img className="size-7" src="/logo-mark.svg" alt="" />
+            <span className="text-[15px] font-medium">Mockstack</span>
+          </div>
+          <span className="hidden rounded-full border border-[#1A6E47]/20 bg-[#1A6E47]/5 px-3 py-1.5 text-xs font-medium text-[#1A6E47] sm:inline-flex">
+            Lifetime access unlocked
+          </span>
         </div>
-        <section className="rounded-xl border border-black/10 bg-white p-6 sm:p-8">
-          <div className="inline-flex size-11 items-center justify-center rounded-full bg-[#1A6E47]/10 text-[#1A6E47]">
-            <Check className="size-5" />
+        <section className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_18px_60px_rgba(0,0,0,0.06)]">
+          <div className="border-b border-black/10 bg-[#1a1a1a] px-6 py-6 text-white sm:px-8">
+            <div className="inline-flex size-11 items-center justify-center rounded-full bg-[#FFE45C] text-[#1a1a1a]">
+              <Check className="size-5" />
+            </div>
+            <h1 className="mt-5 text-3xl font-medium tracking-[-0.025em] sm:text-5xl">
+              You are in.
+            </h1>
+            <p className="mt-4 max-w-[680px] text-base leading-7 text-white/72">
+              Open Mockstack in your browser, install it like an app if your browser supports it, add your fal.ai key, and start generating.
+            </p>
           </div>
-          <h1 className="mt-5 text-3xl font-medium tracking-[-0.025em] sm:text-5xl">
-            You are in.
-          </h1>
-          <p className="mt-4 max-w-[640px] text-base leading-7 text-[#565656]">
-            Mockstack runs as a hosted web app. Open the app, add your fal.ai API key, upload a logo, screenshot, or product photo, then choose scenes and generate.
-          </p>
+          <div className="p-6 sm:p-8">
+            <div className="grid gap-3 sm:grid-cols-3">
+              <StepCard number="1" title="Open Mockstack" copy="Use the hosted app immediately, no download or account setup required." />
+              <StepCard number="2" title="Install locally" copy="Chrome and Edge can install Mockstack into a standalone app window." />
+              <StepCard number="3" title="Add fal.ai" copy="Paste your own key. It stays in this browser, never on our servers." />
+            </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <StepCard number="1" title="Open the app" copy="Bookmark it so you do not have to hunt for the link later." />
-            <StepCard number="2" title="Add fal.ai" copy="Paste your own key. It stays in this browser, never on our servers." />
-            <StepCard number="3" title="Generate" copy="Pick presets, create mockups, and download your finished assets." />
-          </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Button className="h-11 px-5 text-[15px]" onClick={() => onNavigate("/app")}>
+                Open Mockstack
+                <ArrowRight className="size-4" />
+              </Button>
+              {canInstall && !appInstalled && (
+                <Button className="h-11 px-5 text-[15px]" variant="outline" onClick={onInstall}>
+                  Install Mockstack
+                  <Download className="size-4" />
+                </Button>
+              )}
+              <Button
+                className="h-11 px-5 text-[15px]"
+                nativeButton={false}
+                variant="outline"
+                render={<a href="https://fal.ai/dashboard/keys" target="_blank" rel="noreferrer" />}
+              >
+                Get fal.ai key
+                <ExternalLink className="size-4" />
+              </Button>
+            </div>
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Button className="h-11 px-5 text-[15px]" onClick={() => onNavigate("/app")}>
-              Open Mockstack
-              <ArrowRight className="size-4" />
-            </Button>
-            <Button
-              className="h-11 px-5 text-[15px]"
-              nativeButton={false}
-              variant="outline"
-              render={<a href="https://fal.ai/dashboard/keys" target="_blank" rel="noreferrer" />}
-            >
-              Get fal.ai key
-              <ExternalLink className="size-4" />
-            </Button>
-          </div>
-
-          <div className="mt-6 rounded-lg border border-[#BA7517]/20 bg-[#BA7517]/8 p-4 text-sm leading-6 text-[#68430f]">
-            Tip: install Mockstack from your browser menu when prompted, or bookmark `/app`. It behaves like an app, but your settings and library are stored locally in this browser.
+            <div className="mt-6 grid gap-3 md:grid-cols-2">
+              <div className="rounded-xl border border-black/10 bg-[#faf9f5] p-4 text-sm leading-6 text-[#565656]">
+                <strong className="block text-[#1a1a1a]">Installable web app</strong>
+                {appInstalled
+                  ? "Mockstack is already running in standalone app mode on this machine."
+                  : "If the install button does not appear, use your browser menu and choose Install Mockstack or Add to Dock."}
+              </div>
+              <div className="rounded-xl border border-[#BA7517]/20 bg-[#BA7517]/8 p-4 text-sm leading-6 text-[#68430f]">
+                <strong className="block text-[#68430f]">Private by default</strong>
+                Your fal.ai key, settings, and local library stay on this machine unless you clear browser data.
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -1882,10 +2048,12 @@ function LibraryView({
   items,
   onClear,
   onRemove,
+  onView,
 }: {
   items: LibraryItem[]
   onClear: () => void
   onRemove: (id: string) => void
+  onView: (item: PreviewItem) => void
 }) {
   return (
     <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 py-6 sm:px-8">
@@ -1920,7 +2088,7 @@ function LibraryView({
         ) : (
           <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-4">
             {items.map((item) => (
-              <LibraryCard key={item.id} item={item} onRemove={onRemove} />
+              <LibraryCard key={item.id} item={item} onRemove={onRemove} onView={onView} />
             ))}
           </div>
         )}
@@ -1932,9 +2100,11 @@ function LibraryView({
 function LibraryCard({
   item,
   onRemove,
+  onView,
 }: {
   item: LibraryItem
   onRemove: (id: string) => void
+  onView: (item: PreviewItem) => void
 }) {
   return (
     <article className="min-w-0 rounded-[10px] border border-black/10 bg-white p-1.5">
@@ -1956,7 +2126,23 @@ function LibraryCard({
         </div>
         <div className="mt-2 grid grid-cols-3 gap-1.5">
           <Button
-            className="h-8"
+            className="h-8 w-full"
+            size="icon"
+            title={`View ${item.presetName}`}
+            type="button"
+            variant="outline"
+            onClick={() =>
+              onView({
+                name: item.presetName,
+                mediaType: item.mediaType,
+                mediaUrl: item.mediaUrl,
+              })
+            }
+          >
+            <Eye className="size-3.5" />
+          </Button>
+          <Button
+            className="h-8 w-full"
             size="icon"
             title={`Download ${item.presetName}`}
             type="button"
@@ -1970,17 +2156,8 @@ function LibraryCard({
           >
             <Download className="size-3.5" />
           </Button>
-          <a
-            className="group/button inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-input bg-background text-sm font-medium whitespace-nowrap transition-all outline-none select-none hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px"
-            href={item.mediaUrl}
-            rel="noreferrer"
-            target="_blank"
-            title={`Open ${item.presetName}`}
-          >
-            <ExternalLink className="size-3.5" />
-          </a>
           <Button
-            className="h-8"
+            className="h-8 w-full"
             size="icon"
             title={`Remove ${item.presetName}`}
             type="button"
@@ -2369,6 +2546,13 @@ function getRoute(pathname: string): Route {
   if (pathname === "/sales") return "sales"
   if (pathname === "/thank-you") return "thanks"
   return "special"
+}
+
+function isStandaloneDisplay() {
+  return (
+    window.matchMedia?.("(display-mode: standalone)").matches ||
+    (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+  )
 }
 
 function contrastBlock(hex: string) {

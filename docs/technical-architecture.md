@@ -132,7 +132,7 @@ The Library stores the latest 100 metadata records in `localStorage`. See [Local
 
 The Help Center is defined in `src/App.tsx` as static article data rendered in a modal. See [Help Center](./features/help.md).
 
-Help articles currently include first-run onboarding, fal.ai key setup, saving the key in Mockstack, and troubleshooting. Tutorial videos are embedded with YouTube iframe URLs and include fallback YouTube links.
+Help articles currently include first-run onboarding, fal.ai key setup, saving the key in Mockstack, desktop PWA install instructions, source-code access, and troubleshooting. Tutorial videos are embedded with YouTube iframe URLs and include fallback YouTube links.
 
 ## Verification
 

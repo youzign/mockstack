@@ -55,6 +55,30 @@ Content covers:
 - Save
 - Confirm the header shows `Connected`
 
+### Install as a desktop app
+
+Purpose: show buyers how to install Mockstack as a Chrome/Edge desktop PWA.
+
+Content covers:
+
+- Open `https://getmockstack.com/app` in Chrome, Edge, or another Chromium browser
+- Use the address-bar install icon when available
+- Otherwise use the browser menu install action
+- Launch Mockstack from the Dock, taskbar, Start menu, or app launcher
+- Local settings, fal.ai key, and Library stay on that machine unless browser data is cleared
+
+### Download the source code
+
+Purpose: explain that the Mockstack source code is public on GitHub and can be inspected, cloned, forked, or self-hosted.
+
+Content covers:
+
+- GitHub repo: `https://github.com/youzign/mockstack/`
+- Download ZIP from GitHub's `Code` menu
+- Clone with `git clone https://github.com/youzign/mockstack.git`
+- Install dependencies with `npm install`
+- Run locally with `npm run dev`
+
 ### Troubleshooting
 
 Purpose: give users a short recovery path when generation fails.

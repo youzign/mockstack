@@ -19,6 +19,7 @@ Upload an asset, pick mockup contexts, and generate branded mockups using your o
 - No credit system in v1.
 - No app-owned generation cost liability.
 - Hosted web app first.
+- Installable desktop PWA through Chromium browsers.
 - Keep the workflow above the fold where possible.
 - Results panel only shows outputs/pending outputs, never the uploaded source.
 - Presets should feel commercial, specific, and immediately understandable.
@@ -35,6 +36,8 @@ The current app uses a two-column wizard layout:
 The scene picker is available inline during Step 2. The expanded scene browser is an additive modal opened from a small expand icon, not a replacement for the inline browser.
 
 The Help modal provides first-run and fal.ai setup guidance without creating a mandatory onboarding step.
+
+The source code is public at `https://github.com/youzign/mockstack/` so buyers and developers can inspect it, clone it, fork it, or self-host their own copy.
 
 ## Current Local App
 

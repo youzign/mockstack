@@ -40,8 +40,8 @@ The actual image/video bytes are not stored in `localStorage`.
 
 Library cards support:
 
+- View in the large in-app preview modal
 - Download
-- Open in a new tab
 - Remove
 
 The Library view also supports clearing all records.

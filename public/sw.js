@@ -1,4 +1,4 @@
-const CACHE_NAME = "mockstack-shell-v6"
+const CACHE_NAME = "mockstack-shell-v7"
 const APP_SHELL = [
   "/",
   "/app",
@@ -13,6 +13,7 @@ const APP_SHELL = [
   "/sales-im.css",
   "/colors_and_type.css",
   "/preset-names.json",
+  "/preset-gallery.json",
   "/mockstack-3d-cover.png",
   "/the-problem.png",
   "/api-direct-pricing.png",
@@ -22,6 +23,9 @@ const APP_SHELL = [
   "/commercial-license.png",
   "/founder-pledge.png",
   "/founder.png",
+  "/landing-custom/before-black-shirt.png",
+  "/landing-custom/after-red-floral-shirt.png",
+  "/landing-custom/pwa-desktop-screenshot.png",
 ]
 
 self.addEventListener("install", (event) => {
