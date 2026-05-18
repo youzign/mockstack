@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect, useMemo, useState } from "react"
 import { fal } from "@fal-ai/client"
+import { track } from "@vercel/analytics"
 import {
   ArrowRight,
   BadgeCheck,
@@ -159,6 +160,10 @@ const generateLoaderMessages = [
 const libraryStorageKey = "mockstack-library"
 const checkoutUrl =
   import.meta.env.VITE_STRIPE_PAYMENT_LINK || "https://buy.stripe.com/4gMeV5bzq27C6e4a4G3Nm07"
+
+function trackCheckoutClick(location: string) {
+  track("Checkout Click", { location })
+}
 
 const helpArticles: HelpArticle[] = [
   {
@@ -1434,7 +1439,7 @@ function SalesPage({ onNavigate }: { onNavigate: (path: string) => void }) {
             <span className="text-[15px] font-medium tracking-[-0.005em]">Mockstack</span>
           </button>
           <div className="flex items-center gap-2">
-            <Button nativeButton={false} render={<a href={checkoutUrl} />}>
+            <Button nativeButton={false} render={<a href={checkoutUrl} onClick={() => trackCheckoutClick("app-header")} />}>
               Get Mockstack
             </Button>
           </div>
@@ -1455,7 +1460,7 @@ function SalesPage({ onNavigate }: { onNavigate: (path: string) => void }) {
               Upload a logo, screenshot, or product photo. Mockstack turns it into polished image and video mockups using your own API keys, with no usage markup and no monthly fee.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="h-11 px-5 text-[15px]" nativeButton={false} render={<a href={checkoutUrl} />}>
+              <Button className="h-11 px-5 text-[15px]" nativeButton={false} render={<a href={checkoutUrl} onClick={() => trackCheckoutClick("app-hero")} />}>
                 YES - Get Mockstack lifetime
                 <ArrowRight className="size-4" />
               </Button>
@@ -1511,7 +1516,7 @@ function SalesPage({ onNavigate }: { onNavigate: (path: string) => void }) {
             Drop a logo, screenshot, or product photo. Pick scenes from the launch preset library. Generate polished mockups through your own fal.ai account and save the results locally in your browser.
           </p>
           <div className="mt-7">
-            <Button className="h-11 px-5 text-[15px]" nativeButton={false} render={<a href={checkoutUrl} />}>
+            <Button className="h-11 px-5 text-[15px]" nativeButton={false} render={<a href={checkoutUrl} onClick={() => trackCheckoutClick("app-bottom")} />}>
               Get lifetime access
             </Button>
           </div>
@@ -1522,6 +1527,17 @@ function SalesPage({ onNavigate }: { onNavigate: (path: string) => void }) {
 }
 
 function SpecialPage() {
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return
+      if (event.data?.type !== "mockstack-checkout-click") return
+      trackCheckoutClick(String(event.data.location || "special"))
+    }
+
+    window.addEventListener("message", handleMessage)
+    return () => window.removeEventListener("message", handleMessage)
+  }, [])
+
   return (
     <iframe
       className="block h-screen w-full border-0 bg-white"
