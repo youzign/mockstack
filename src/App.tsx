@@ -159,7 +159,7 @@ const generateLoaderMessages = [
 
 const libraryStorageKey = "mockstack-library"
 const checkoutUrl =
-  import.meta.env.VITE_STRIPE_PAYMENT_LINK || "https://buy.stripe.com/4gMeV5bzq27C6e4a4G3Nm07"
+  import.meta.env.VITE_STRIPE_PAYMENT_LINK || "https://buy.stripe.com/aFa6ozgTK7rW1XOgt43Nm08"
 
 function trackCheckoutClick(location: string) {
   track("Checkout Click", { location })
