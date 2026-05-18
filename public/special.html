@@ -13,7 +13,7 @@
 <!-- ── scarcity bar ─────────────────────────────────────── -->
 <div class="im-scarcity">
   <span class="pulse"></span>
-  <span><strong>Founding-buyer window</strong> · 1,000+ templates, lifetime access, no monthly fee. Closes Friday 15 May at 11:59 PM ET.</span>
+  <span><strong>Founding-buyer window</strong> · 1,000+ templates, lifetime access, no monthly fee. Price increases 20 May at 11:59PM ET.</span>
   <span class="timer" id="im-timer">--d : --h : --m : --s</span>
 </div>
 
@@ -816,9 +816,9 @@
       .catch(() => render("all"));
   })();
 
-  // countdown timer to the founding-buyer close: Friday 15 May 2026, 11:59 PM New York time
+  // countdown timer to the price increase: Wednesday 20 May 2026, 11:59 PM New York time
   (function() {
-    const target = new Date("2026-05-15T23:59:00-04:00").getTime();
+    const target = new Date("2026-05-20T23:59:00-04:00").getTime();
     const els = [document.getElementById("im-timer"), document.getElementById("im-timer-final")].filter(Boolean);
     if (!els.length) return;
     const pad = n => String(n).padStart(2, "0");

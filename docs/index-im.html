@@ -14,8 +14,8 @@
 <!-- ── scarcity bar ─────────────────────────────────────── -->
 <div class="im-scarcity">
   <span class="pulse"></span>
-  <span><strong>LAUNCH WEEK · 25% OFF</strong> · 130 lifetime presets · ends in</span>
-  <span class="timer" id="im-timer">04d : 23h : 59m : 12s</span>
+  <span><strong>LAUNCH WEEK · 25% OFF</strong> · 130 lifetime presets · Price increases 20 May at 11:59PM ET.</span>
+  <span class="timer" id="im-timer">--d : --h : --m : --s</span>
 </div>
 
 <!-- ── sticky brand + mini price + cta ─────────────────── -->
@@ -651,9 +651,9 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // tiny countdown timer — 5 days from page load
+  // countdown timer to the price increase: Wednesday 20 May 2026, 11:59 PM New York time
   (function() {
-    const target = Date.now() + 5 * 24 * 60 * 60 * 1000;
+    const target = new Date("2026-05-20T23:59:00-04:00").getTime();
     const el = document.getElementById("im-timer");
     if (!el) return;
     const pad = n => String(n).padStart(2, "0");

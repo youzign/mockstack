@@ -35,7 +35,7 @@ Current Stripe checkout link for the bottom CTA:
 https://buy.stripe.com/4gMeV5bzq27C6e4a4G3Nm07
 ```
 
-The founding-buyer countdown currently targets Friday 15 May 2026 at 11:59 PM New York time.
+The founding-buyer countdown currently targets the price increase on Wednesday 20 May 2026 at 11:59 PM New York time.
 
 ## Copy Rules
 
