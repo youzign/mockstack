@@ -10,6 +10,14 @@
 </head>
 <body>
 
+<div class="im-proof-pop" id="im-proof-pop" aria-live="polite">
+  <div class="im-proof-avatar" id="im-proof-avatar">LK</div>
+  <div>
+    <strong id="im-proof-name">Liam K.</strong>
+    <span id="im-proof-action">just purchased the MockStack lifetime deal</span>
+  </div>
+</div>
+
 <!-- ── scarcity bar ─────────────────────────────────────── -->
 <div class="im-scarcity">
   <span class="pulse"></span>
@@ -24,8 +32,9 @@
       <span class="mark"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span></span>
       <span>MockStack</span>
     </a>
-    <span class="miniprice">
-      <strong>Lifetime access</strong>
+    <span class="miniprice im-nav-timer">
+      <strong>Special deal ends soon</strong>
+      <span class="timer" id="im-timer-nav">--d : --h : --m : --s</span>
     </span>
     <a class="im-cta compact" href="#buy">
       <span>Get MockStack →</span>
@@ -65,6 +74,24 @@
         <span>100-day money-back guarantee.</span><span class="sep">·</span>
         <span>Instant access.</span>
       </div>
+    </div>
+
+    <div class="im-testimonials im-testimonials-hook im-hero-testimonials">
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"Just cancelled my Placeit subscription. That alone pays for this tool by next month lol."</blockquote>
+        <figcaption>Marcus V. <span>Agency owner</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"MockStack is actually nuts. Hooked up fal.ai in like 40 seconds. 4 cents an image is wild compared to what Canva's charging now."</blockquote>
+        <figcaption>Jess R. <span>Solo founder</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"The video templates actually work. No weird AI glitching or melting logos. I got a clean 3D rotation of my product box in under a minute for like 30 cents."</blockquote>
+        <figcaption>Sarah Jenkins <span>POD creator</span></figcaption>
+      </figure>
     </div>
 
   </div>
@@ -199,6 +226,33 @@
       <div style="margin-top: 12px; font-size: 12px; color: var(--fg-3); text-align:center;">
         🛡 100-day money-back · Stripe checkout · instant access
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── proof testimonials ───────────────────────────────── -->
+<section class="im-section im-testimonial-section">
+  <div class="im-wrap">
+    <span class="im-eyebrow center" style="display:block; text-align:center;">Real outputs, not AI mush</span>
+    <h2 class="im-h2 center" style="text-align:center; margin-left:auto; margin-right:auto;">
+      Logos stay sharp. Text stays readable. Video does not melt.
+    </h2>
+    <div class="im-testimonials im-testimonials-proof">
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"I typed vintage green shirt, concrete studio. It changed the shirt and scene but left my design alone. That is the part most AI tools get wrong."</blockquote>
+        <figcaption>Sarah M. <span>Etsy seller</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"Honestly expected the video feature to be a mess. It wasn't. Clean product pan, logo stayed normal, rendered fast enough that I actually used it in an ad test."</blockquote>
+        <figcaption>Chloe J. <span>Media buyer</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"The ebook title stayed readable. Small thing, huge deal. I had the book cover and iPad shot on my sales page ten minutes later."</blockquote>
+        <figcaption>Marc L. <span>Course creator</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -634,6 +688,24 @@
         <p><strong>Founder-led. Founder-pledged. Founder-signed.</strong></p>
       </div>
     </div>
+
+    <div class="im-testimonials im-testimonials-objections">
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"I almost bounced at the API key part, then watched the setup video. It's basically copy, paste, done. I had a mockup rendering before my coffee cooled down."</blockquote>
+        <figcaption>Tom H. <span>Shop owner</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"I ran a bunch of mockups yesterday and the fal.ai charge was pocket change. Now the BYOK thing makes total sense."</blockquote>
+        <figcaption>Elena R. <span>Content lead</span></figcaption>
+      </figure>
+      <figure class="im-testimonial">
+        <div class="im-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"After Smartmockups disappeared, source code matters. If the hosted app ever goes away, I can still keep my workflow. That was the closer for me."</blockquote>
+        <figcaption>Jase W. <span>Developer</span></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -900,7 +972,7 @@
   // countdown timer to the price increase: Wednesday 20 May 2026, 11:59 PM New York time
   (function() {
     const target = new Date("2026-05-20T23:59:00-04:00").getTime();
-    const els = [document.getElementById("im-timer"), document.getElementById("im-timer-final")].filter(Boolean);
+    const els = [document.getElementById("im-timer"), document.getElementById("im-timer-nav"), document.getElementById("im-timer-final")].filter(Boolean);
     if (!els.length) return;
     const pad = n => String(n).padStart(2, "0");
     function tick() {
@@ -914,6 +986,43 @@
       });
     }
     tick(); setInterval(tick, 1000);
+  })();
+
+  // lightweight social-proof popup
+  (function() {
+    const pop = document.getElementById("im-proof-pop");
+    const avatar = document.getElementById("im-proof-avatar");
+    const name = document.getElementById("im-proof-name");
+    const action = document.getElementById("im-proof-action");
+    if (!pop || !avatar || !name || !action) return;
+
+    const buyers = [
+      { name: "Liam K.", initials: "LK" },
+      { name: "Jess R.", initials: "JR" },
+      { name: "Dave S.", initials: "DS" },
+      { name: "Sarah M.", initials: "SM" },
+      { name: "Chloe J.", initials: "CJ" },
+      { name: "Marc L.", initials: "ML" },
+      { name: "Tom H.", initials: "TH" },
+      { name: "Elena R.", initials: "ER" },
+      { name: "Jase W.", initials: "JW" }
+    ];
+
+    let index = 0;
+    function showBuyer() {
+      const buyer = buyers[index % buyers.length];
+      pop.classList.remove("show");
+      window.setTimeout(() => {
+        avatar.textContent = buyer.initials;
+        name.textContent = buyer.name;
+        action.textContent = "just purchased the MockStack lifetime deal";
+        pop.classList.add("show");
+        index += 1;
+      }, 350);
+    }
+
+    window.setTimeout(showBuyer, 3500);
+    window.setInterval(showBuyer, 15000);
   })();
 </script>
 

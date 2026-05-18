@@ -18,6 +18,59 @@
   letter-spacing: 0.02em;
 }
 
+.im-proof-pop {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: min(330px, calc(100vw - 32px));
+  border: 1px solid rgba(186, 117, 23, 0.26);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+  padding: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.im-proof-pop.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.im-proof-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--im-yellow);
+  color: var(--fg-1);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.im-proof-pop strong {
+  display: block;
+  color: var(--fg-1);
+  font-size: 14px;
+  line-height: 1.15;
+}
+
+.im-proof-pop span {
+  display: block;
+  margin-top: 3px;
+  color: var(--fg-2);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
 .pulse {
   width: 8px;
   height: 8px;
@@ -98,6 +151,24 @@
   margin-left: auto;
   color: var(--fg-2);
   font-size: 13px;
+}
+
+.im-nav-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.im-nav-timer strong {
+  color: var(--fg-1);
+}
+
+.im-nav-timer .timer {
+  border-radius: 999px;
+  background: rgba(255, 228, 92, 0.24);
+  padding: 6px 10px;
+  color: var(--fg-1);
+  font-size: 12px;
 }
 
 .strike,
@@ -419,6 +490,125 @@
 
 .im-step {
   padding: 22px;
+}
+
+.im-testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 1040px;
+  margin: 34px auto 0;
+}
+
+.im-testimonials-hook {
+  margin-top: 24px;
+}
+
+.im-hero-testimonials {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.im-testimonial {
+  position: relative;
+  margin: 0;
+  border: 1px solid rgba(186, 117, 23, 0.22);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 214, 0.82), rgba(255, 255, 255, 0.96) 38%),
+    #fff;
+  padding: 20px;
+  box-shadow: 0 18px 48px rgba(26, 26, 26, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.im-testimonial:hover {
+  border-color: rgba(186, 117, 23, 0.42);
+  box-shadow: 0 22px 58px rgba(26, 26, 26, 0.12);
+  transform: translateY(-2px);
+}
+
+.im-testimonial:nth-child(2) {
+  margin-top: 16px;
+}
+
+.im-testimonial:nth-child(3) {
+  margin-top: 7px;
+}
+
+.im-testimonial::before {
+  content: "“";
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  color: rgba(0, 0, 0, 0.08);
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.im-stars {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #d69b00;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.im-testimonial blockquote {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--fg-1);
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 1.56;
+}
+
+.im-testimonial figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 13px;
+  color: var(--fg-1);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.im-testimonial figcaption span {
+  border-radius: 999px;
+  background: rgba(26, 110, 71, 0.08);
+  padding: 5px 9px;
+  color: #1a6e47;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.im-testimonial-section {
+  background: #fff;
+}
+
+.im-testimonials-objections {
+  max-width: 1040px;
+}
+
+.im-testimonials-proof .im-testimonial:nth-child(1) {
+  margin-top: 0;
+}
+
+.im-testimonials-proof .im-testimonial:nth-child(2) {
+  margin-top: 28px;
+}
+
+.im-testimonials-proof .im-testimonial:nth-child(3) {
+  margin-top: 12px;
 }
 
 .num-pill {
@@ -1414,6 +1604,10 @@ th {
     display: none;
   }
 
+  .im-nav-timer {
+    display: none;
+  }
+
   .im-hero {
     padding: 58px 0 54px;
   }
@@ -1423,6 +1617,7 @@ th {
   }
 
   .im-steps,
+  .im-testimonials,
   .im-guar,
   .im-founder,
   .im-bonus-row,
@@ -1455,6 +1650,13 @@ th {
 }
 
 @media (max-width: 620px) {
+  .im-proof-pop {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+  }
+
   .im-scarcity {
     flex-wrap: wrap;
     padding: 8px 12px;
