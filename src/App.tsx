@@ -42,7 +42,7 @@ import { cn } from "@/lib/utils"
 import { imageModel, presets, videoModel, type InputType, type Preset, type PresetGroup } from "@/data/presets"
 
 type AppView = "create" | "library"
-type Route = "sales" | "special" | "app" | "thanks"
+type Route = "sales" | "special" | "specialV2" | "app" | "thanks"
 type HelpArticleId = "first-mockup" | "fal-key" | "use-fal-key" | "desktop-install" | "source-code" | "troubleshooting"
 type PresetOutputFilter = "all" | "image" | "video"
 type InstallPromptOutcome = "accepted" | "dismissed"
@@ -821,6 +821,10 @@ function App() {
     return <SpecialPage />
   }
 
+  if (route === "specialV2") {
+    return <StaticOfferPage src="/v2/index.html" title="Mockstack v2 special offer" />
+  }
+
   if (route === "thanks") {
     return (
       <ThankYouPage
@@ -1539,10 +1543,16 @@ function SpecialPage() {
   }, [])
 
   return (
+    <StaticOfferPage src="/special.html" title="Mockstack special offer" />
+  )
+}
+
+function StaticOfferPage({ src, title }: { src: string; title: string }) {
+  return (
     <iframe
       className="block h-screen w-full border-0 bg-white"
-      src="/special.html"
-      title="Mockstack special offer"
+      src={src}
+      title={title}
     />
   )
 }
@@ -2558,6 +2568,7 @@ function formatLibraryDate(value: string) {
 
 function getRoute(pathname: string): Route {
   if (pathname === "/app") return "app"
+  if (pathname === "/v2" || pathname === "/v2/") return "specialV2"
   if (pathname === "/" || pathname === "/special") return "special"
   if (pathname === "/sales") return "sales"
   if (pathname === "/thank-you") return "thanks"
