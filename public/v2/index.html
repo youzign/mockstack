@@ -21,7 +21,7 @@
 <!-- ── scarcity bar ─────────────────────────────────────── -->
 <div class="im-scarcity">
   <span class="pulse"></span>
-  <span><strong>Special Founding Buyer Deal</strong> · Price increases 20 May at 11:59 PM ET.</span>
+  <span><strong>Final day for the founding deal</strong> · Closes Friday 22 May at 11:59 PM ET.</span>
   <span class="timer" id="im-timer">--d : --h : --m : --s</span>
 </div>
 
@@ -33,7 +33,7 @@
       <span>MockStack</span>
     </a>
     <span class="miniprice im-nav-timer">
-      <strong>Special deal ends soon</strong>
+      <strong>Final day: deal closes tonight</strong>
       <span class="timer" id="im-timer-nav">--d : --h : --m : --s</span>
     </span>
     <a class="im-cta compact" href="#buy">
@@ -45,7 +45,7 @@
 <!-- ── hero ─────────────────────────────────────────────── -->
 <header id="top" class="im-hero">
   <div class="im-wrap">
-    <span class="im-precred"><span class="dot"></span>Founding buyer deal · $49 today</span>
+    <span class="im-precred"><span class="dot"></span>Final day · $49 closes tonight</span>
 
     <h1 class="im-hero-h1">
       Sell <span class="im-hero-highlight">Client-Ready Mockups</span> in 30 Seconds
@@ -874,9 +874,9 @@
 <!-- ── final big CTA / signoff ──────────────────────────── -->
 <section id="buy" class="im-signoff">
   <div class="im-wrap">
-    <span class="im-final-pill">Founding price ends soon</span>
+    <span class="im-final-pill">Final day: founding price closes tonight</span>
     <h3>Ready to flood your shops and client pipeline with pro mockups?</h3>
-    <p class="im-final-sub">Secure your $49 founding price before it increases. One payment. Lifetime access. Zero subscriptions. Ever.</p>
+    <p class="im-final-sub">Secure your $49 founding price before the special closes tonight and the lifetime deal moves to $99. One payment. Lifetime access. Zero subscriptions. Ever.</p>
 
     <div class="im-final-stack">
       <div class="im-stack-head">
@@ -987,14 +987,14 @@
           <strong>$2,934</strong>
         </div>
         <div class="im-price-line muted">
-          <span>Regular lifetime price</span>
-          <strong>$199</strong>
+          <span>After tonight</span>
+          <strong>$99</strong>
         </div>
         <div class="im-price-line launch">
-          <span>Today only launch price</span>
+          <span>Final-day founding price</span>
           <strong>$49</strong>
         </div>
-        <p>Lock in the full founding buyer stack before the price increases on 20 May at 11:59PM ET.</p>
+        <p>Lock in the full founding buyer stack before the special closes Friday 22 May at 11:59PM ET.</p>
       </div>
     </div>
 
@@ -1079,9 +1079,9 @@
       .catch(() => render("all"));
   })();
 
-  // countdown timer to the price increase: Wednesday 20 May 2026, 11:59 PM New York time
+  // countdown timer to the final founding deal close: Friday 22 May 2026, 11:59 PM New York time
   (function() {
-    const target = new Date("2026-05-20T23:59:00-04:00").getTime();
+    const target = new Date("2026-05-22T23:59:00-04:00").getTime();
     const els = [document.getElementById("im-timer"), document.getElementById("im-timer-nav"), document.getElementById("im-timer-final")].filter(Boolean);
     if (!els.length) return;
     const pad = n => String(n).padStart(2, "0");
