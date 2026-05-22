@@ -11,11 +11,12 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background: var(--fg-1);
+  border-bottom: 1px solid rgba(120, 12, 20, 0.32);
+  background: linear-gradient(90deg, #9f1239 0%, #dc2626 48%, #991b1b 100%);
   color: white;
   font-size: 12px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.025em;
+  box-shadow: 0 10px 26px rgba(127, 29, 29, 0.18);
 }
 
 .im-proof-pop {
@@ -75,15 +76,19 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--im-yellow);
-  box-shadow: 0 0 0 0 rgba(255, 228, 92, 0.55);
+  background: #ffe45c;
+  box-shadow: 0 0 0 0 rgba(255, 228, 92, 0.7);
   animation: im-pulse 1.4s infinite;
 }
 
 .timer {
-  color: var(--im-yellow);
+  border-radius: 999px;
+  background: #ffe45c;
+  padding: 4px 9px;
+  color: #1a1a1a;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
 .im-stickynav {
