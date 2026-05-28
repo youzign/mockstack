@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>MockStack — Founding Buyer Deal</title>
+  <title>MockStack — Lifetime Access</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/colors_and_type.css" />
@@ -21,8 +21,7 @@
 <!-- ── scarcity bar ─────────────────────────────────────── -->
 <div class="im-scarcity">
   <span class="pulse"></span>
-  <span><strong>Final day: price doubles tonight</strong> · $49 becomes $99 after 11:59 PM ET.</span>
-  <span class="timer" id="im-timer">--d : --h : --m : --s</span>
+  <span><strong>MockStack Lifetime Access</strong> · One payment · No subscription · Raw fal.ai cost.</span>
 </div>
 
 <!-- ── sticky brand + mini price + cta ─────────────────── -->
@@ -33,8 +32,8 @@
       <span>MockStack</span>
     </a>
     <span class="miniprice im-nav-timer">
-      <strong>Final day: deal closes tonight</strong>
-      <span class="timer" id="im-timer-nav">--d : --h : --m : --s</span>
+      <strong>Lifetime access available now</strong>
+      <span class="im-nav-price">$74 today</span>
     </span>
     <a class="im-cta compact" href="#buy">
       <span>Get MockStack →</span>
@@ -45,7 +44,7 @@
 <!-- ── hero ─────────────────────────────────────────────── -->
 <header id="top" class="im-hero">
   <div class="im-wrap">
-    <span class="im-precred"><span class="dot"></span>Final day · $49 closes tonight</span>
+    <span class="im-precred"><span class="dot"></span>MockStack Lifetime Access · $74 today</span>
 
     <h1 class="im-hero-h1">
       Sell <span class="im-hero-highlight">Client-Ready Mockups</span> in 30 Seconds
@@ -74,7 +73,7 @@
 
     <div class="im-cta-block">
       <a class="im-cta big" href="#buy">
-        <span>Get Lifetime Access for $49</span>
+        <span>Get Lifetime Access for $74</span>
         <span class="arrow">→</span>
       </a>
       <div class="undertext">
@@ -874,14 +873,14 @@
 <!-- ── final big CTA / signoff ──────────────────────────── -->
 <section id="buy" class="im-signoff">
   <div class="im-wrap">
-    <span class="im-final-pill">Final day: founding price closes tonight</span>
+    <span class="im-final-pill">Lifetime access available now</span>
     <h3>Ready to flood your shops and client pipeline with pro mockups?</h3>
-    <p class="im-final-sub">Secure your $49 founding price before the special closes tonight and the lifetime deal moves to $99. One payment. Lifetime access. Zero subscriptions. Ever.</p>
+    <p class="im-final-sub">Get MockStack today for less than five months of Placeit. One payment. Lifetime access. Zero subscriptions. Ever.</p>
 
     <div class="im-final-stack">
       <div class="im-stack-head">
         <div>
-          <span class="im-stack-kicker">MockStack + founding buyer bonuses</span>
+          <span class="im-stack-kicker">MockStack lifetime stack</span>
           <h4>Everything you get today</h4>
         </div>
         <div class="im-stack-total-mini">
@@ -987,19 +986,19 @@
           <strong>$2,934</strong>
         </div>
         <div class="im-price-line muted">
-          <span>After tonight</span>
-          <strong>$99</strong>
+          <span>Regular lifetime price</span>
+          <strong>$199</strong>
         </div>
         <div class="im-price-line launch">
-          <span>Final-day founding price</span>
-          <strong>$49</strong>
+          <span>Today's lifetime price</span>
+          <strong>$74</strong>
         </div>
-        <p>Lock in the full founding buyer stack before the special closes Friday 22 May at 11:59PM ET.</p>
+        <p>Get the full MockStack lifetime stack today. Still one payment, still no subscription, still raw fal.ai cost.</p>
       </div>
     </div>
 
     <div style="margin-top: 32px;">
-      <a class="im-cta big" href="https://buy.stripe.com/aFa6ozgTK7rW1XOgt43Nm08" target="_top" onclick="window.parent.postMessage({ type: 'mockstack-checkout-click', location: 'special-v2-final' }, window.location.origin)">
+      <a class="im-cta big" href="https://buy.stripe.com/6oU28javmh2wbyogt43Nm06" target="_top" onclick="window.parent.postMessage({ type: 'mockstack-checkout-click', location: 'special-v2-final' }, window.location.origin)">
         <span>Get MockStack + All Bonuses Now</span>
         <span class="arrow">→</span>
       </a>
@@ -1077,25 +1076,6 @@
         render(document.querySelector("[data-preset-filter].active")?.getAttribute("data-preset-filter") || "all");
       })
       .catch(() => render("all"));
-  })();
-
-  // countdown timer to the final founding deal close: Friday 22 May 2026, 11:59 PM New York time
-  (function() {
-    const target = new Date("2026-05-22T23:59:00-04:00").getTime();
-    const els = [document.getElementById("im-timer"), document.getElementById("im-timer-nav"), document.getElementById("im-timer-final")].filter(Boolean);
-    if (!els.length) return;
-    const pad = n => String(n).padStart(2, "0");
-    function tick() {
-      let d = Math.max(0, target - Date.now());
-      const days = Math.floor(d / 86400000); d -= days * 86400000;
-      const hrs = Math.floor(d / 3600000); d -= hrs * 3600000;
-      const min = Math.floor(d / 60000); d -= min * 60000;
-      const sec = Math.floor(d / 1000);
-      els.forEach(el => {
-        el.textContent = `${pad(days)}d : ${pad(hrs)}h : ${pad(min)}m : ${pad(sec)}s`;
-      });
-    }
-    tick(); setInterval(tick, 1000);
   })();
 
   // lightweight social-proof popup
